@@ -60,9 +60,18 @@ function MaskMap() {
             return;
         }
 
-        navigator.permissions.query({ name: "geolocation" }).then((result) => {
-            setGeolocState(result.state);
-        });
+        // navigator.permissions is an experimental API that is
+        // unsupported in iOS, so it needs a try-catch block
+        try {
+            navigator.permissions
+                .query({ name: "geolocation" })
+                .then((result) => {
+                    setGeolocState(result.state);
+                });
+        } catch (error) {
+            console.error(error);
+            setGeolocState("unknown");
+        }
 
         if (
             geoloc.accuracy != null ||
@@ -206,7 +215,8 @@ function MaskMap() {
                     <Row>
                         <Col sm={12}>
                             <Alert variant="warning">
-                                <FontAwesomeIcon icon={faExclamationTriangle} />{" "}{t("notice.apiIsInBeta")}
+                                <FontAwesomeIcon icon={faExclamationTriangle} />{" "}
+                                {t("notice.apiIsInBeta")}
                             </Alert>
                             {geolocState && geolocState === "denied" && (
                                 <Alert variant="danger">
