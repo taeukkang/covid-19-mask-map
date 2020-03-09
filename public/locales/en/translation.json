@@ -1,0 +1,14 @@
+{
+    "appName": "Korea Public Mask Store Map",
+    "errors": {
+        "failedToLoadData": "The app failed to load data from the server. Please try again later."
+    },
+    "storeData": {
+        "name": "Name",
+        "address": "Address",
+        "remainingCount": "Remaining count",
+        "stockCount": "Stock count"
+    },
+    "locationsInStock": "In stock",
+    "locationsOutOfStock": "Out of stock"
+}
