@@ -1,7 +1,11 @@
 {
     "appName": "공적 마스크 판매처 지도",
-    "errors": {
-        "failedToLoadData": "서버에서 데이터를 불러오는데 실패했습니다. 잠시 후에 다시 시도해 주십시오."
+    "error": {
+        "failedToLoadData": "서버에서 데이터를 불러오는데 실패했습니다. 잠시 후에 다시 시도해 주십시오.",
+        "failedToAccessGeolocation": "위치 권한을 허용하지 않아 지도를 자동으로 불러오지 못했습니다."
+    },
+    "notice": {
+        "apiIsInBeta": "3월 15일까지 본 서비스는 베타테스트로 운영되며, 정식 오픈일은 추후 공지됩니다."
     },
     "storeData": {
         "name": "명칭",

@@ -1,7 +1,11 @@
 {
     "appName": "Korea Public Mask Store Map",
     "errors": {
-        "failedToLoadData": "The app failed to load data from the server. Please try again later."
+        "failedToLoadData": "The app failed to load data from the server. Please try again later.",
+        "failedToAccessGeolocation": "The map failed to load automatically as location service is denied."
+    },
+    "notice": {
+        "apiIsInBeta": "The service is in beta until March 15th, and the public release date will be released shortly."
     },
     "storeData": {
         "name": "Name",

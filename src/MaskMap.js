@@ -205,13 +205,15 @@ function MaskMap() {
                 <Container>
                     <Row>
                         <Col sm={12}>
+                            <Alert variant="warning">
+                                <FontAwesomeIcon icon={faExclamationTriangle} />{" "}{t("notice.apiIsInBeta")}
+                            </Alert>
                             {geolocState && geolocState === "denied" && (
                                 <Alert variant="danger">
                                     <FontAwesomeIcon
                                         icon={faExclamationTriangle}
                                     />{" "}
-                                    위치 권한을 허용하지 않아 지도를 자동으로
-                                    불러오지 못했습니다.
+                                    {t("error.failedToAccessGeolocation")}
                                 </Alert>
                             )}
                         </Col>
@@ -230,7 +232,7 @@ function MaskMap() {
                                     <FontAwesomeIcon
                                         icon={faExclamationTriangle}
                                     />{" "}
-                                    {t("errors.failedToLoadData")}
+                                    {t("error.failedToLoadData")}
                                 </Alert>
                             )}
                             {dataPoints && (
