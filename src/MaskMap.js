@@ -25,6 +25,7 @@ import useNaverMaps from "./hooks/useNaverMaps";
 import useNaverMapsMarkers from "./hooks/useNaverMapsMarkers";
 import useGeolocation from "react-hook-geolocation";
 import { useTranslation, withTranslation, Trans } from "react-i18next";
+import { storesByGeoDemo } from "./demoData";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -43,6 +44,16 @@ function MaskMap() {
     const [dataError, setDataError] = useState(false);
     const [storesInStockCount, setStoresInStockCount] = useState(null);
     const [storesOutOfStockCount, setStoresOutOfStockCount] = useState(null);
+
+    useEffect(() => {
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let debug = params.get("debug");
+        if (debug === "1") {
+            console.log(storesByGeoDemo);
+            setDataPoints(storesByGeoDemo);
+        }
+    }, []);
 
     useEffect(() => {
         if (!geoloc) {
@@ -155,29 +166,6 @@ function MaskMap() {
         setActiveTabKey(key);
     };
 
-    const demoData = {
-        store: [
-            {
-                name: "라이브 약국",
-                addr: "제주도 제주시 라이브동",
-                stock_t: "11:40",
-                stock_cnt: "50",
-                sold_cnt: "10",
-                remain_cnt: "10",
-                sold_out: false
-            },
-            {
-                name: "일요일 약국",
-                addr: "제주도 제주시 연동",
-                stock_t: "11:40",
-                stock_cnt: "50",
-                sold_cnt: "40",
-                remain_cnt: "100",
-                sold_out: true
-            }
-        ]
-    };
-
     return (
         <>
             <header className="App-header">
@@ -193,12 +181,13 @@ function MaskMap() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <NavDropdown
-                                title="🌐 Language">
-                                <NavDropdown.Item onClick={() => i18n.changeLanguage("ko")}>
+                            <NavDropdown title="🌐 Language">
+                                <NavDropdown.Item
+                                    onClick={() => i18n.changeLanguage("ko")}>
                                     한국어
                                 </NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => i18n.changeLanguage("en")}>
+                                <NavDropdown.Item
+                                    onClick={() => i18n.changeLanguage("en")}>
                                     English
                                 </NavDropdown.Item>
                             </NavDropdown>
@@ -236,7 +225,15 @@ function MaskMap() {
                             />
                         </Col>
                         <Col md={6}>
-                            {demoData && (
+                            {dataError && (
+                                <Alert variant="danger">
+                                    <FontAwesomeIcon
+                                        icon={faExclamationTriangle}
+                                    />{" "}
+                                    {t("errors.failedToLoadData")}
+                                </Alert>
+                            )}
+                            {dataPoints && (
                                 <>
                                     <div className="d-flex flex-row justify-content-around text-center mb-4">
                                         <div
@@ -275,7 +272,7 @@ function MaskMap() {
                                         </div>
                                     </div>
                                     <Accordion defaultActiveKey="0">
-                                        {demoData.store.map((store, idx) => {
+                                        {dataPoints.stores.map((store, idx) => {
                                             if (
                                                 store.sold_out &&
                                                 activeTabKey === "inStock"
@@ -346,14 +343,6 @@ function MaskMap() {
                                 <Spinner animation="border" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </Spinner>
-                            )}
-                            {dataError && (
-                                <Alert variant="danger">
-                                    <FontAwesomeIcon
-                                        icon={faExclamationTriangle}
-                                    />{" "}
-                                    {t("errors.failedToLoadData")}
-                                </Alert>
                             )}
                         </Col>
                     </Row>
