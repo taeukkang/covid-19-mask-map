@@ -8,7 +8,8 @@ const useNaverMaps = () => {
                 lng: 127.533382
             },
             zoom: 1,
-            zoomControl: true
+            zoomControl: true,
+            disableDoubleClickZoom: true
         };
 
         if (window.naver && ref.current) {

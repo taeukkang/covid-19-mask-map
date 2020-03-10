@@ -88,7 +88,7 @@ function MaskMap() {
                 lng: geoloc.longitude
             };
             setPinpoint(coord);
-            //mapObj.setZoom(14);
+            mapObj.setZoom(13);
             mapObj.setCenter(coord);
         }
     }, [geoloc]);
@@ -172,6 +172,18 @@ function MaskMap() {
         if (!mapObj) {
             return;
         }
+        window.naver.maps.Event.addListener(mapObj, "longtap", function(e) {
+            setPinpoint({
+                lat: e.coord.y,
+                lng: e.coord.x
+            });
+        });
+        window.naver.maps.Event.addListener(mapObj, "dblclick", function(e) {
+            setPinpoint({
+                lat: e.coord.y,
+                lng: e.coord.x
+            });
+        });
     }, [mapObj]);
 
     const [activeTabKey, setActiveTabKey] = useState("inStock");
@@ -207,6 +219,18 @@ function MaskMap() {
                             <MapPanel />
                         </Col>
                         <Col md={6}>
+                            <div className="border border-info bg-info text-white p-1">
+                                지도를 더블클릭하거나 길게 터치(2초)해서 주변
+                                마스크 판매점을 확인하세요.
+                            </div>
+                            {dataError && (
+                                <Alert variant="danger" className="mt-1">
+                                    <FontAwesomeIcon
+                                        icon={faExclamationTriangle}
+                                    />{" "}
+                                    {t("error.failedToLoadData")}
+                                </Alert>
+                            )}
                             <div className="border p-1 mb-1 d-flex flex-row justify-content-between">
                                 <div>
                                     <RemainingStockBadge remainingStockStr="plenty" />{" "}
@@ -225,14 +249,6 @@ function MaskMap() {
                                     0개
                                 </div>
                             </div>
-                            {dataError && (
-                                <Alert variant="danger">
-                                    <FontAwesomeIcon
-                                        icon={faExclamationTriangle}
-                                    />{" "}
-                                    {t("error.failedToLoadData")}
-                                </Alert>
-                            )}
                             {maskStores && (
                                 <>
                                     <MaskStoreTable2
