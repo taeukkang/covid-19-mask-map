@@ -26,6 +26,9 @@ import useNaverMapsMarkers from "./hooks/useNaverMapsMarkers";
 import useGeolocation from "react-hook-geolocation";
 import { useTranslation, withTranslation, Trans } from "react-i18next";
 import { storesByGeoDemo } from "./demoData";
+import AppNav from "./components/AppNav";
+import { useMaskData } from "./context/MaskDataContext";
+import MapPanel from "./components/MapPanel";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -33,6 +36,8 @@ function MaskMap() {
     useEffect(() => {
         i18n.changeLanguage("ko");
     }, []);
+
+    const { mapObj } = useMaskData();
 
     const geoloc = useGeolocation();
     const [geolocState, setGeolocState] = useState(null);
@@ -83,10 +88,25 @@ function MaskMap() {
                 lng: geoloc.longitude
             };
             setPinpoint(coord);
-            mapObj.setZoom(14);
+            //mapObj.setZoom(14);
             mapObj.setCenter(coord);
         }
     }, [geoloc]);
+
+    const checkInStock = (remainStat) => {
+        switch (remainStat) {
+            case "plenty":
+                return true;
+            case "some":
+                return true;
+            case "few":
+                return true;
+            case "empty":
+                return false;
+            default:
+                return false;
+        }
+    };
 
     useEffect(() => {
         if (!pinpoint) {
@@ -130,29 +150,20 @@ function MaskMap() {
         fetchStoresByGeo(pinpoint, 10000);
     }, [pinpoint]);
 
-    const mapRef = useRef();
-    const loadMap = useNaverMaps();
-    const [mapObj, setMapObj] = useState(null);
-
-    useEffect(() => {
-        if (mapRef && mapRef.current) {
-            setMapObj(loadMap(mapRef));
-        }
-    }, [mapRef, loadMap]);
-
     useEffect(() => {
         if (!dataPoints || !mapObj) {
             return;
         }
+
         console.log(dataPoints);
         dataPoints.stores.map((store) => {
             addMarker(mapObj, store);
         });
         dataPoints.stores.forEach((store) => {
-            if (store.sold_out) {
-                setStoresOutOfStockCount((prev) => prev + 1);
-            } else {
+            if (checkInStock(store.remain_stat)) {
                 setStoresInStockCount((prev) => prev + 1);
+            } else {
+                setStoresOutOfStockCount((prev) => prev + 1);
             }
         });
     }, [dataPoints]);
@@ -178,37 +189,7 @@ function MaskMap() {
     return (
         <>
             <header className="App-header">
-                <Navbar bg="light" className="mb-3 navbar-mobile-thin">
-                    <Navbar.Brand href="/">
-                        <FontAwesomeIcon
-                            icon={faPlusSquare}
-                            size="lg"
-                            className="mr-2"
-                        />
-                        {t("appName")}
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ml-auto">
-                            <NavDropdown title="🌐 Language">
-                                <NavDropdown.Item
-                                    onClick={() => i18n.changeLanguage("ko")}>
-                                    한국어
-                                </NavDropdown.Item>
-                                <NavDropdown.Item
-                                    onClick={() => i18n.changeLanguage("en")}>
-                                    English
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href="https://livecorona.co.kr">
-                                <FontAwesomeIcon icon={faChartArea} size="lg" />
-                            </Nav.Link>
-                            <Nav.Link href="https://github.com/LiveCoronaDetector/">
-                                <FontAwesomeIcon icon={faGithub} size="lg" />
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
+                <AppNav />
             </header>
             <main>
                 <Container>
@@ -230,11 +211,7 @@ function MaskMap() {
                     </Row>
                     <Row style={{ minHeight: "65vh" }}>
                         <Col md={6}>
-                            <div
-                                id="map"
-                                ref={mapRef}
-                                style={{ width: "100%", height: "100%" }}
-                            />
+                            <MapPanel />
                         </Col>
                         <Col md={6}>
                             {dataError && (
@@ -286,13 +263,17 @@ function MaskMap() {
                                     <Accordion defaultActiveKey="0">
                                         {dataPoints.stores.map((store, idx) => {
                                             if (
-                                                store.sold_out &&
-                                                activeTabKey === "inStock"
+                                                checkInStock(
+                                                    store.remain_stat
+                                                ) &&
+                                                activeTabKey === "outOfStock"
                                             ) {
                                                 return null;
                                             } else if (
-                                                !store.sold_out &&
-                                                activeTabKey === "outOfStock"
+                                                !checkInStock(
+                                                    store.remain_stat
+                                                ) &&
+                                                activeTabKey === "inStock"
                                             ) {
                                                 return null;
                                             }
