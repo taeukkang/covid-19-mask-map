@@ -40,7 +40,7 @@ function MaskMap() {
     const [storesOutOfStockCount, setStoresOutOfStockCount] = useState(null);
 
     const setNewMaskStores = (data) => {
-        const priority = ["plenty", "some", "few", "empty"];
+        const priority = ["plenty", "some", "few", "empty", null];
         data.sort(
             (a, b) =>
                 priority.indexOf(a.remain_stat) -
@@ -88,7 +88,7 @@ function MaskMap() {
                 lng: geoloc.longitude
             };
             setPinpoint(coord);
-            mapObj.setZoom(13);
+            mapObj.setZoom(12);
             mapObj.setCenter(coord);
         }
     }, [geoloc]);
@@ -144,7 +144,7 @@ function MaskMap() {
                 }
             }
 
-            setNewMaskStores(result.data);
+            setNewMaskStores(result.data.stores);
         };
 
         fetchStoresByGeo(pinpoint, 10000);
