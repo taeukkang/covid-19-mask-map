@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
 import MaskMap from "./MaskMap";
+import { MaskDataContextProvider } from "./context/MaskDataContext";
 
 function App() {
     return (
         // TODO: needs a better fallback
         <Suspense fallback={<div></div>}>
-            <MaskMap />
+            <MaskDataContextProvider>
+                <MaskMap />
+            </MaskDataContextProvider>
         </Suspense>
     );
 }
