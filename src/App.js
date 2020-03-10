@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
-import MaskMap from "./MaskMap";
+import MaskMap from "./components/MaskMap";
 import { MaskDataContextProvider } from "./context/MaskDataContext";
 
 function App() {
