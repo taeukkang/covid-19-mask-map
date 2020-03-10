@@ -1,17 +1,5 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
-import {
-    Accordion,
-    Alert,
-    Button,
-    Container,
-    Card,
-    Row,
-    Col,
-    Spinner,
-    Navbar,
-    Nav,
-    NavDropdown
-} from "react-bootstrap";
+import { Alert, Container, Card, Row, Col, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -30,6 +18,7 @@ import { useMaskData } from "../context/MaskDataContext";
 import MapPanel from "./MapPanel";
 import MaskStoreTable from "./MaskStoreTable";
 import RemainingStockBadge from "./RemainingStockBadge";
+import MaskStoreTable2 from "./MaskStoreTable2";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -50,13 +39,24 @@ function MaskMap() {
     const [storesInStockCount, setStoresInStockCount] = useState(null);
     const [storesOutOfStockCount, setStoresOutOfStockCount] = useState(null);
 
+    const setNewMaskStores = (data) => {
+        const priority = ["plenty", "some", "few", "empty"];
+        data.sort(
+            (a, b) =>
+                priority.indexOf(a.remain_stat) -
+                priority.indexOf(b.remain_stat)
+        );
+        console.log(data);
+        setMaskStores(data);
+    };
+
     useEffect(() => {
         let search = window.location.search;
         let params = new URLSearchParams(search);
         let debug = params.get("debug");
         if (debug === "1") {
             console.log(storesByGeoDemo);
-            setMaskStores(storesByGeoDemo.stores);
+            setNewMaskStores(storesByGeoDemo.stores);
         }
     }, []);
 
@@ -144,7 +144,7 @@ function MaskMap() {
                 }
             }
 
-            setMaskStores(result.data);
+            setNewMaskStores(result.data);
         };
 
         fetchStoresByGeo(pinpoint, 10000);
@@ -235,7 +235,12 @@ function MaskMap() {
                             )}
                             {maskStores && (
                                 <>
-                                    <MaskStoreTable />
+                                    <MaskStoreTable2
+                                        style={{
+                                            overflow: "auto",
+                                            maxHeight: "100px"
+                                        }}
+                                    />
                                 </>
                             )}
                             {!maskStores && !dataError && (
