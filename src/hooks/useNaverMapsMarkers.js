@@ -1,4 +1,6 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
+import ReactDOMServer from "react-dom/server";
+import RemainingStockBadge from "../components/RemainingStockBadge";
 
 const useNaverMapsMarkers = () => {
     const [markers, setMarkers] = useState([]);
@@ -16,7 +18,12 @@ const useNaverMapsMarkers = () => {
             }
         });
 
-        const infoWindowHTML = `<div style="font-size: small; padding: 15px;"><h5>${data.name}</h5><p>${data.addr}<br />남은 수량: ${data.remain_cnt}</p></div>`;
+        const infoWindowHTML = `
+            <div style="font-size: 1rem; padding: 15px;">
+                <h5>${data.name}</h5>
+                <p>${data.addr}<br />
+                남은 수량: ${ReactDOMServer.renderToString(<RemainingStockBadge remainingStockStr={data.remain_stat}/>)}</p>
+            </div>`;
 
         const infoWindow = new window.naver.maps.InfoWindow({
             content: infoWindowHTML
