@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
-import { useTable } from "react-table";
+import { useTable, useBlockLayout } from "react-table";
 import { Table } from "react-bootstrap";
 import RemainingStockBadge from "./RemainingStockBadge";
 
@@ -11,24 +11,22 @@ function MaskStoreTable() {
 
     const columns = useMemo(() => [
         {
-            Header: "Mask",
-            columns: [
-                {
-                    Header: t("storeData.name"),
-                    accessor: "name"
-                },
-                {
-                    Header: t("storeData.stockCount"),
-                    accessor: "remain_stat",
-                    Cell: ({ cell: { value } }) => (
-                        <RemainingStockBadge remainingStockStr={value} />
-                    )
-                },
-                {
-                    Header: t("storeData.address"),
-                    accessor: "addr"
-                }
-            ]
+            Header: t("storeData.name"),
+            accessor: "name",
+            width: 160
+        },
+        {
+            Header: t("storeData.stockCount"),
+            accessor: "remain_stat",
+            Cell: ({ cell: { value } }) => (
+                <RemainingStockBadge remainingStockStr={value} />
+            ),
+            width: 60
+        },
+        {
+            Header: t("storeData.address"),
+            accessor: "addr",
+            minWidth: 200
         }
     ]);
 
@@ -47,10 +45,13 @@ function TableUI({ columns, data }) {
         headerGroups,
         rows,
         prepareRow
-    } = useTable({
-        columns,
-        data
-    });
+    } = useTable(
+        {
+            columns,
+            data
+        },
+        useBlockLayout
+    );
 
     // Render the UI for your table
     return (
