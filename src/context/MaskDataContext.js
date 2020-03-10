@@ -2,17 +2,22 @@ import React, { useState, useContext, createContext } from "react";
 
 export const MaskDataContext = createContext({
     mapObj: null,
-    setMapObj: () => {}
+    setMapObj: () => {},
+    maskStores: {},
+    setMaskStores: () => {}
 });
 
 export function MaskDataContextProvider({ children }) {
     const [mapObj, setMapObj] = useState(null);
+    const [maskStores, setMaskStores] = useState([]);
 
     return (
         <MaskDataContext.Provider
             value={{
                 mapObj,
-                setMapObj
+                setMapObj,
+                maskStores,
+                setMaskStores
             }}>
             {children}
         </MaskDataContext.Provider>
