@@ -22,7 +22,9 @@ const useNaverMapsMarkers = () => {
             <div style="font-size: 1rem; padding: 15px;">
                 <h5>${data.name}</h5>
                 <p>${data.addr}<br />
-                남은 수량: ${ReactDOMServer.renderToString(<RemainingStockBadge remainingStockStr={data.remain_stat}/>)}</p>
+                남은 수량: ${ReactDOMServer.renderToString(
+                    <RemainingStockBadge remainingStockStr={data.remain_stat} />
+                )}</p>
             </div>`;
 
         const infoWindow = new window.naver.maps.InfoWindow({
@@ -38,8 +40,7 @@ const useNaverMapsMarkers = () => {
             infoWindow.open(map, marker);
         });
 
-        // TODO: fix the direct mutation to the state
-        markers.push(marker);
+        setMarkers((oldArray) => [...oldArray, marker]);
     };
 
     const resetMarker = useCallback(() => {
@@ -47,7 +48,7 @@ const useNaverMapsMarkers = () => {
             marker.setMap(null);
         });
         setMarkers([]);
-    });
+    }, [markers]);
 
     return {
         addMarker,

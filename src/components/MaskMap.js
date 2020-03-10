@@ -88,6 +88,7 @@ function MaskMap() {
                 lng: geoloc.longitude
             };
             setPinpoint(coord);
+            resetMarker();
             mapObj.setZoom(12);
             mapObj.setCenter(coord);
         }
@@ -128,13 +129,16 @@ function MaskMap() {
             // TODO: optimize logic and duplicate code
             // what this does is when there's too much places, it makes the range smaller
             // this might have to move to somewhere else
-            if (result.data.count > 50) {
+            if (result.data.stores.length > 50) {
                 const serverUrl = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${
                     loc.lat
                 }&lng=${loc.lng}&m=${range / 2}`;
 
                 try {
                     result = await axios(serverUrl);
+
+                    setNewMaskStores(result.data.stores);
+                    resetMarker();
                 } catch (error) {
                     console.error(
                         "An error occurred in fetchStoresByGeo:",
@@ -142,9 +146,10 @@ function MaskMap() {
                     );
                     return;
                 }
+            } else {
+                setNewMaskStores(result.data.stores);
+                resetMarker();
             }
-
-            setNewMaskStores(result.data.stores);
         };
 
         fetchStoresByGeo(pinpoint, 10000);
@@ -154,8 +159,7 @@ function MaskMap() {
         if (!maskStores || !mapObj) {
             return;
         }
-
-        console.log(maskStores);
+        resetMarker();
         maskStores.map((store) => {
             addMarker(mapObj, store);
         });
@@ -215,7 +219,13 @@ function MaskMap() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={6} style={{ minHeight: "65vh", height:"65vh", maxHeight: "65vh" }}>
+                        <Col
+                            md={6}
+                            style={{
+                                minHeight: "65vh",
+                                height: "65vh",
+                                maxHeight: "65vh"
+                            }}>
                             <MapPanel />
                         </Col>
                         <Col md={6}>
