@@ -11,7 +11,7 @@
         "name": "명칭",
         "address": "주소",
         "remainingCount": "남은 수량",
-        "stockCount": "재고 수량"
+        "stockCount": "수량"
     },
     "locationsInStock": "재고가 있는 곳",
     "locationsOutOfStock": "재고가 없는 곳"
