@@ -214,8 +214,8 @@ function MaskMap() {
                             )}
                         </Col>
                     </Row>
-                    <Row style={{ minHeight: "65vh" }}>
-                        <Col md={6}>
+                    <Row>
+                        <Col md={6} style={{ minHeight: "65vh", height:"65vh", maxHeight: "65vh" }}>
                             <MapPanel />
                         </Col>
                         <Col md={6}>
