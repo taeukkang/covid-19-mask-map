@@ -131,7 +131,7 @@ function MaskMap() {
     return (
         <>
             <main>
-                <Container>
+                <Container id="mainContainer">
                     <Row>
                         <Col sm={12}>
                             <Alert variant="warning">
