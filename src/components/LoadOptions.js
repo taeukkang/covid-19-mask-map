@@ -106,6 +106,7 @@ function LoadOptions() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        onClickAddress();
     };
 
     return (
@@ -135,7 +136,7 @@ function LoadOptions() {
                                     onChange={(e) => setAddress(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
-                                    예) 역삼동
+                                    예) 서울시 강남구 역삼동
                                 </Form.Text>
                             </Form.Group>
                             <div className="d-flex flex-column">
