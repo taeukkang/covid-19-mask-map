@@ -1,15 +1,18 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 
 export const MaskDataContext = createContext({
     mapObj: null,
     setMapObj: () => {},
     maskStores: {},
-    setMaskStores: () => {}
+    setMaskStores: () => {},
+    centerCoord: null,
+    setCenterCoord: () => {}
 });
 
 export function MaskDataContextProvider({ children }) {
     const [mapObj, setMapObj] = useState(null);
     const [maskStores, setMaskStores] = useState([]);
+    const [centerCoord, setCenterCoord] = useState(null);
 
     return (
         <MaskDataContext.Provider
@@ -17,7 +20,9 @@ export function MaskDataContextProvider({ children }) {
                 mapObj,
                 setMapObj,
                 maskStores,
-                setMaskStores
+                setMaskStores,
+                centerCoord,
+                setCenterCoord
             }}>
             {children}
         </MaskDataContext.Provider>

@@ -2,17 +2,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import {
-    faPlusSquare,
-    faChartArea,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 function AppNav() {
     const { t, i18n } = useTranslation();
 
     return (
-        <Navbar bg="light" className="mb-3 navbar-mobile-thin">
+        <Navbar bg="light" expand="lg" className="mb-3 navbar-mobile-thin">
             <Navbar.Brand href="/">
                 <FontAwesomeIcon
                     icon={faPlusSquare}

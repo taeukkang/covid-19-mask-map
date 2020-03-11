@@ -1,13 +1,18 @@
-import React, { useEffect, useState, useRef, Suspense } from "react";
-import MaskMap from "./components/MaskMap";
+import React, { Suspense } from "react";
 import { MaskDataContextProvider } from "./context/MaskDataContext";
+import AppNav from "./components/AppNav";
+import MaskStatus from "./components/MaskStatus";
 
 function App() {
+
     return (
         // TODO: needs a better fallback
         <Suspense fallback={<div></div>}>
             <MaskDataContextProvider>
-                <MaskMap />
+                <header className="App-header">
+                    <AppNav />
+                </header>
+                <MaskStatus />
             </MaskDataContextProvider>
         </Suspense>
     );

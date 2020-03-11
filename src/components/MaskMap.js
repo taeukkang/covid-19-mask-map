@@ -1,22 +1,21 @@
-import React, { useEffect, useState, useRef, Suspense } from "react";
-import { Alert, Container, Card, Row, Col, Spinner } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import React, { useEffect, useState, useCallback } from "react";
 import {
-    faPlusSquare,
-    faChartArea,
-    faExclamationTriangle
-} from "@fortawesome/free-solid-svg-icons";
+    Alert,
+    Container,
+    Card,
+    Row,
+    Col,
+    Spinner,
+    Button
+} from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import useNaverMaps from "../hooks/useNaverMaps";
 import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
-import useGeolocation from "react-hook-geolocation";
 import { useTranslation, withTranslation, Trans } from "react-i18next";
 import { storesByGeoDemo } from "../demoData";
-import AppNav from "./AppNav";
 import { useMaskData } from "../context/MaskDataContext";
 import MapPanel from "./MapPanel";
-import MaskStoreTable from "./MaskStoreTable";
 import RemainingStockBadge from "./RemainingStockBadge";
 import MaskStoreTable2 from "./MaskStoreTable2";
 
@@ -27,72 +26,34 @@ function MaskMap() {
         i18n.changeLanguage("ko");
     }, []);
 
-    const { mapObj, maskStores, setMaskStores } = useMaskData();
+    const {
+        mapObj,
+        maskStores,
+        setMaskStores,
+        centerCoord,
+        setCenterCoord
+    } = useMaskData();
+    const {
+        addMarker,
+        addColorIndicatorMarkers,
+        resetMarker
+    } = useNaverMapsMarkers();
 
-    const geoloc = useGeolocation();
-    const [geolocState, setGeolocState] = useState(null);
-    const { addMarker, resetMarker } = useNaverMapsMarkers();
-
-    const [pinpoint, setPinpoint] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
-    const [storesInStockCount, setStoresInStockCount] = useState(null);
-    const [storesOutOfStockCount, setStoresOutOfStockCount] = useState(null);
 
-    const setNewMaskStores = (data) => {
-        const priority = ["plenty", "some", "few", "empty", null];
-        data.sort(
-            (a, b) =>
-                priority.indexOf(a.remain_stat) -
-                priority.indexOf(b.remain_stat)
-        );
-        console.log(data);
-        setMaskStores(data);
-    };
-
-    useEffect(() => {
-        let search = window.location.search;
-        let params = new URLSearchParams(search);
-        let debug = params.get("debug");
-        if (debug === "1") {
-            console.log(storesByGeoDemo);
-            setNewMaskStores(storesByGeoDemo.stores);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (!geoloc) {
-            return;
-        }
-
-        // navigator.permissions is an experimental API that is
-        // unsupported in iOS, so it needs a try-catch block
-        try {
-            navigator.permissions
-                .query({ name: "geolocation" })
-                .then((result) => {
-                    setGeolocState(result.state);
-                });
-        } catch (error) {
-            console.error(error);
-            setGeolocState("unknown");
-        }
-
-        if (
-            geoloc.accuracy != null ||
-            geoloc.latitude != null ||
-            geoloc.longitude != null
-        ) {
-            const coord = {
-                lat: geoloc.latitude,
-                lng: geoloc.longitude
-            };
-            setPinpoint(coord);
-            resetMarker();
-            mapObj.setZoom(12);
-            mapObj.setCenter(coord);
-        }
-    }, [geoloc]);
+    const setNewMaskStores = useCallback(
+        (data) => {
+            const priority = ["plenty", "some", "few", "empty", null];
+            data.sort(
+                (a, b) =>
+                    priority.indexOf(a.remain_stat) -
+                    priority.indexOf(b.remain_stat)
+            );
+            setMaskStores(data);
+        },
+        [setMaskStores]
+    );
 
     const checkInStock = (remainStat) => {
         switch (remainStat) {
@@ -110,96 +71,65 @@ function MaskMap() {
     };
 
     useEffect(() => {
-        if (!pinpoint) {
-            return;
-        }
-
         const fetchStoresByGeo = async (loc, range) => {
             const serverUrl = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${loc.lat}&lng=${loc.lng}&m=${range}`;
 
             let result;
             try {
+                setIsLoading(true);
                 result = await axios(serverUrl);
+                setIsLoading(false);
             } catch (error) {
                 console.error("An error occurred in fetchStoresByGeo:", error);
                 setDataError(true);
-                return;
+                setIsLoading(false);
+                throw Error("Failed");
             }
+            return result.data.stores;
+        };
 
-            // TODO: optimize logic and duplicate code
-            // what this does is when there's too much places, it makes the range smaller
-            // this might have to move to somewhere else
-            if (result.data.stores.length > 50) {
-                const serverUrl = `https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${
-                    loc.lat
-                }&lng=${loc.lng}&m=${range / 2}`;
-
-                try {
-                    result = await axios(serverUrl);
-
-                    setNewMaskStores(result.data.stores);
-                    resetMarker();
-                } catch (error) {
-                    console.error(
-                        "An error occurred in fetchStoresByGeo:",
-                        error
-                    );
-                    return;
-                }
-            } else {
-                setNewMaskStores(result.data.stores);
-                resetMarker();
+        const fn = async () => {
+            //resetMarker();
+            console.log("Fetching store data...");
+            let data;
+            try {
+                data = await fetchStoresByGeo(centerCoord, 500);
+                console.log(`New store data fetched`);
+                console.log(data);
+                setNewMaskStores(data);
+            } catch {
+                console.error("Failed to fetch data");
             }
         };
 
-        fetchStoresByGeo(pinpoint, 10000);
-    }, [pinpoint]);
+        fn();
+    }, [centerCoord, setNewMaskStores]);
 
     useEffect(() => {
-        if (!maskStores || !mapObj) {
-            return;
+        if (mapObj) {
+            mapObj.setCenter(centerCoord);
+            mapObj.setZoom(14);
         }
-        resetMarker();
-        maskStores.map((store) => {
-            addMarker(mapObj, store);
-        });
-        maskStores.forEach((store) => {
-            if (checkInStock(store.remain_stat)) {
-                setStoresInStockCount((prev) => prev + 1);
-            } else {
-                setStoresOutOfStockCount((prev) => prev + 1);
-            }
-        });
-    }, [maskStores]);
+    }, [mapObj, centerCoord]);
 
     useEffect(() => {
         if (!mapObj) {
             return;
         }
-        window.naver.maps.Event.addListener(mapObj, "longtap", function(e) {
-            setPinpoint({
-                lat: e.coord.y,
-                lng: e.coord.x
-            });
-        });
-        window.naver.maps.Event.addListener(mapObj, "dblclick", function(e) {
-            setPinpoint({
-                lat: e.coord.y,
-                lng: e.coord.x
-            });
-        });
-    }, [mapObj]);
 
-    const [activeTabKey, setActiveTabKey] = useState("inStock");
-    const onTabularLabelClick = (e, key) => {
-        setActiveTabKey(key);
+        addColorIndicatorMarkers(mapObj, maskStores);
+    }, [maskStores]);
+
+    const onClickMapRelocate = () => {
+        const newCenter = mapObj.getCenter();
+        setCenterCoord({
+            lat: newCenter.y,
+            lng: newCenter.x
+        });
     };
 
     return (
         <>
-            <header className="App-header">
-                <AppNav />
-            </header>
             <main>
                 <Container>
                     <Row>
@@ -208,14 +138,6 @@ function MaskMap() {
                                 <FontAwesomeIcon icon={faExclamationTriangle} />{" "}
                                 {t("notice.apiIsInBeta")}
                             </Alert>
-                            {geolocState && geolocState === "denied" && (
-                                <Alert variant="danger">
-                                    <FontAwesomeIcon
-                                        icon={faExclamationTriangle}
-                                    />{" "}
-                                    {t("error.failedToAccessGeolocation")}
-                                </Alert>
-                            )}
                         </Col>
                     </Row>
                     <Row>
@@ -227,6 +149,13 @@ function MaskMap() {
                                 maxHeight: "65vh"
                             }}>
                             <MapPanel />
+                            <Button
+                                variant="outline-primary"
+                                className="mt-1"
+                                block
+                                onClick={onClickMapRelocate}>
+                                🟢 주변 판매처 탐색하기
+                            </Button>
                         </Col>
                         <Col md={6}>
                             <div className="border border-info bg-info text-white p-1">
@@ -259,7 +188,12 @@ function MaskMap() {
                                     0개
                                 </div>
                             </div>
-                            {maskStores && (
+
+                            {isLoading ? (
+                                <Spinner animation="border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </Spinner>
+                            ) : maskStores && maskStores.length ? (
                                 <>
                                     <MaskStoreTable2
                                         style={{
@@ -268,11 +202,10 @@ function MaskMap() {
                                         }}
                                     />
                                 </>
-                            )}
-                            {!maskStores && !dataError && (
-                                <Spinner animation="border" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </Spinner>
+                            ) : (
+                                <Alert variant="danger">
+                                    주변에 마스크 판매처가 없습니다. 지도를 이동한 후 지도 아래의 재검색 버튼을 이용해 주세요.
+                                </Alert>
                             )}
                         </Col>
                     </Row>
