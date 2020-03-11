@@ -101,9 +101,9 @@ const useNaverMapsMarkers = () => {
                 });
 
                 const infoWindowHTML = `
-            <div style="font-size: 0.85rem; padding: 15px;">
+            <div style="font-size: 0.85rem; padding: 5px; width: 200px !important;">
                 <h5 style="font-size: 1rem">${store.name}</h5>
-                <p>${store.addr}<br />
+                <p className="mb-0 pb-0">${store.addr}<br />
                 남은 수량: ${ReactDOMServer.renderToString(
                     <RemainingStockBadge
                         remainingStockStr={store.remain_stat}
