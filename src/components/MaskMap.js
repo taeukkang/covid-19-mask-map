@@ -153,10 +153,6 @@ function MaskMap() {
                             </Button>
                         </Col>
                         <Col md={6}>
-                            <div className="border border-info bg-info text-white p-1">
-                                지도를 더블클릭하거나 길게 터치(2초)해서 주변
-                                마스크 판매점을 확인하세요.
-                            </div>
                             {dataError && (
                                 <Alert variant="danger" className="mt-1">
                                     <FontAwesomeIcon
