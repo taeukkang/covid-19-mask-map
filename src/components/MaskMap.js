@@ -9,7 +9,10 @@ import {
     Button
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import {
+    faExclamationTriangle,
+    faLocationArrow
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
 import { useTranslation, withTranslation, Trans } from "react-i18next";
@@ -42,9 +45,23 @@ function MaskMap() {
     const [isLoading, setIsLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
 
+    const [markerFilter, setMarkerFilter] = useState({
+        plenty: true,
+        some: true,
+        few: true,
+        empty: false
+    });
+
     const setNewMaskStores = useCallback(
         (data) => {
-            const priority = ["plenty", "some", "few", "empty", null];
+            const priority = [
+                "plenty",
+                "some",
+                "few",
+                "empty",
+                null,
+                undefined
+            ];
             data.sort(
                 (a, b) =>
                     priority.indexOf(a.remain_stat) -
@@ -54,6 +71,21 @@ function MaskMap() {
         },
         [setMaskStores]
     );
+
+    const markerFilterCheckboxHandler = (e) => {
+        let target = e.target;
+        console.log(target);
+        setMarkerFilter((prev) => {
+            return {
+                ...prev,
+                [target.name]: target.checked
+            };
+        });
+    };
+
+    useEffect(() => {
+        console.log(markerFilter);
+    }, [markerFilter]);
 
     const checkInStock = (remainStat) => {
         switch (remainStat) {
@@ -89,13 +121,14 @@ function MaskMap() {
         };
 
         const fn = async () => {
-            //resetMarker();
+            resetMarker();
             console.log("Fetching store data...");
             let data;
             try {
-                data = await fetchStoresByGeo(centerCoord, 500);
+                data = await fetchStoresByGeo(centerCoord, 5000);
                 console.log(`New store data fetched`);
                 console.log(data);
+                resetMarker();
                 setNewMaskStores(data);
             } catch {
                 console.error("Failed to fetch data");
@@ -141,15 +174,15 @@ function MaskMap() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col
-                            md={6}>
-                            <MapPanel/>
+                        <Col md={6}>
+                            <MapPanel />
                             <Button
                                 variant="outline-primary"
                                 className="mt-1 mb-1"
                                 block
                                 onClick={onClickMapRelocate}>
-                                🟢 주변 판매처 탐색하기
+                                <FontAwesomeIcon icon={faLocationArrow} />{" "}
+                                클릭해 지도 재탐색하기
                             </Button>
                         </Col>
                         <Col md={6}>
@@ -162,21 +195,77 @@ function MaskMap() {
                                 </Alert>
                             )}
                             <div className="border p-1 mb-1 d-flex flex-row justify-content-between">
-                                <div>
-                                    <RemainingStockBadge remainingStockStr="plenty" />{" "}
-                                    100개 이상
+                                <div class="form-check">
+                                    <input
+                                        type="checkbox"
+                                        disabled
+                                        class="form-check-input"
+                                        id="showPlentyStores"
+                                        name="plenty"
+                                        defaultChecked={markerFilter.plenty}
+                                        value={markerFilter.plenty}
+                                        onChange={markerFilterCheckboxHandler}
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="showPlentyStores">
+                                        <RemainingStockBadge remainingStockStr="plenty" />{" "}
+                                        100개 +
+                                    </label>
                                 </div>
-                                <div>
-                                    <RemainingStockBadge remainingStockStr="some" />{" "}
-                                    30개-100개
+                                <div class="form-check">
+                                    <input
+                                        type="checkbox"
+                                        disabled
+                                        class="form-check-input"
+                                        id="showSomeStores"
+                                        name="some"
+                                        defaultChecked={markerFilter.some}
+                                        value={markerFilter.some}
+                                        onChange={markerFilterCheckboxHandler}
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="showSomeStores">
+                                        <RemainingStockBadge remainingStockStr="some" />{" "}
+                                        30-100
+                                    </label>
                                 </div>
-                                <div>
-                                    <RemainingStockBadge remainingStockStr="few" />{" "}
-                                    2개-30개
+                                <div class="form-check">
+                                    <input
+                                        type="checkbox"
+                                        disabled
+                                        class="form-check-input"
+                                        id="showFewStores"
+                                        name="few"
+                                        defaultChecked={markerFilter.few}
+                                        value={markerFilter.few}
+                                        onChange={markerFilterCheckboxHandler}
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="showFewStores">
+                                        <RemainingStockBadge remainingStockStr="few" />{" "}
+                                        2-30
+                                    </label>
                                 </div>
-                                <div>
-                                    <RemainingStockBadge remainingStockStr="empty" />{" "}
-                                    0개
+                                <div class="form-check">
+                                    <input
+                                        type="checkbox"
+                                        disabled
+                                        class="form-check-input"
+                                        id="showEmptyStores"
+                                        name="empty"
+                                        defaultChecked={markerFilter.empty}
+                                        value={markerFilter.empty}
+                                        onChange={markerFilterCheckboxHandler}
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="showEmptyStores">
+                                        <RemainingStockBadge remainingStockStr="empty" />{" "}
+                                        0개
+                                    </label>
                                 </div>
                             </div>
 
@@ -195,7 +284,9 @@ function MaskMap() {
                                 </>
                             ) : (
                                 <Alert variant="danger">
-                                    주변에 마스크 판매처가 없습니다. 지도를 이동한 후 지도 아래의 재검색 버튼을 이용해 주세요.
+                                    주변에 마스크 판매처가 없습니다. 지도를
+                                    이동한 후 지도 아래의 재검색 버튼을 이용해
+                                    주세요.
                                 </Alert>
                             )}
                         </Col>

@@ -6,13 +6,26 @@ export const MaskDataContext = createContext({
     maskStores: {},
     setMaskStores: () => {},
     centerCoord: null,
-    setCenterCoord: () => {}
+    setCenterCoord: () => {},
+    markerFilter: {
+        plenty: true,
+        some: true,
+        few: true,
+        empty: false
+    },
+    setMarkerFilter: () => {}
 });
 
 export function MaskDataContextProvider({ children }) {
     const [mapObj, setMapObj] = useState(null);
     const [maskStores, setMaskStores] = useState([]);
     const [centerCoord, setCenterCoord] = useState(null);
+    const [markerFilter, setMarkerFilter] = useState({
+        plenty: true,
+        some: true,
+        few: true,
+        empty: false
+    });
 
     return (
         <MaskDataContext.Provider
@@ -22,7 +35,9 @@ export function MaskDataContextProvider({ children }) {
                 maskStores,
                 setMaskStores,
                 centerCoord,
-                setCenterCoord
+                setCenterCoord,
+                markerFilter,
+                setMarkerFilter
             }}>
             {children}
         </MaskDataContext.Provider>

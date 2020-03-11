@@ -24,6 +24,7 @@ function RemainingStockBadge({ remainingStockStr }) {
             break;
         default:
             variant = "light";
+            text = "?";
     }
     return <Badge variant={variant}>{text}</Badge>;
 }
