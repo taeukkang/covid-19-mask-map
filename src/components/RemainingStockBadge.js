@@ -1,26 +1,28 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function RemainingStockBadge({ remainingStockStr }) {
+    const { t } = useTranslation();
     let variant;
     let text;
 
     switch (remainingStockStr) {
         case "plenty":
             variant = "success";
-            text = "여유";
+            text = t("badge.plenty");
             break;
         case "some":
             variant = "warning";
-            text = "일부";
+            text = t("badge.some");
             break;
         case "few":
             variant = "danger";
-            text = "부족";
+            text = t("badge.few");
             break;
         case "empty":
             variant = "light";
-            text = "없음";
+            text = t("badge.empty");
             break;
         default:
             variant = "light";

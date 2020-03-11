@@ -1,12 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-    Alert,
-    Container,
-    Row,
-    Col,
-    Spinner,
-    Button
-} from "react-bootstrap";
+import { Alert, Container, Row, Col, Spinner, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faExclamationTriangle,
@@ -42,6 +35,7 @@ function MaskMap() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
+    const [showBetaAlert, setShowBetaAlert] = useState(true);
 
     const [markerFilter, setMarkerFilter] = useState({
         plenty: true,
@@ -165,10 +159,17 @@ function MaskMap() {
                 <Container id="mainContainer">
                     <Row>
                         <Col sm={12}>
-                            <Alert variant="warning">
-                                <FontAwesomeIcon icon={faExclamationTriangle} />{" "}
-                                {t("notice.apiIsInBeta")}
-                            </Alert>
+                            {showBetaAlert && (
+                                <Alert
+                                    variant="warning"
+                                    onClose={() => setShowBetaAlert(false)}
+                                    dismissible>
+                                    <FontAwesomeIcon
+                                        icon={faExclamationTriangle}
+                                    />{" "}
+                                    {t("notice.apiIsInBeta")}
+                                </Alert>
+                            )}
                         </Col>
                     </Row>
                     <Row>
@@ -180,7 +181,7 @@ function MaskMap() {
                                 block
                                 onClick={onClickMapRelocate}>
                                 <FontAwesomeIcon icon={faLocationArrow} />{" "}
-                                클릭해 지도 재탐색하기
+                                {t("refreshMapStores")}
                             </Button>
                         </Col>
                         <Col md={6}>

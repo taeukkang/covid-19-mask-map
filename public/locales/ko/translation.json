@@ -1,11 +1,12 @@
 {
     "appName": "공적 마스크 판매처 지도",
+    "searchMaskStores": "마스크 판매처 조회",
     "error": {
         "failedToLoadData": "서버에서 데이터를 불러오는데 실패했습니다. 잠시 후에 다시 시도해 주십시오.",
         "failedToAccessGeolocation": "위치 권한을 허용하지 않아 지도를 자동으로 불러오지 못했습니다."
     },
     "notice": {
-        "apiIsInBeta": "3월 15일까지 본 서비스는 베타테스트로 운영되며, 정식 오픈일은 추후 공지됩니다."
+        "apiIsInBeta": "베타 서비스입니다. 오차가 있을 수 있으며 5분의 지연 시간 양해바랍니다."
     },
     "storeData": {
         "name": "명칭",
@@ -14,5 +15,18 @@
         "stockCount": "수량"
     },
     "locationsInStock": "재고가 있는 곳",
-    "locationsOutOfStock": "재고가 없는 곳"
+    "locationsOutOfStock": "재고가 없는 곳",
+    "addressInputLabel": "판매처를 찾을 주소를 입력해 주세요",
+    "addressInputExample": "예) 서울시 강남구 역삼동",
+    "searchByAddress": "주소로 조회",
+    "searchByGeoloc": "GPS 위치로 조회",
+    "covid19Dashboard": "코로나19 상황판",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "여유",
+        "some": "일부",
+        "few": "소량",
+        "empty": "없음"
+    },
+    "refreshMapStores": "지도 주변 판매처 재검색"
 }

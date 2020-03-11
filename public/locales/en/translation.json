@@ -1,11 +1,12 @@
 {
     "appName": "Korea Public Mask Store Map",
+    "searchMaskStores": "Search mask stores",
     "error": {
         "failedToLoadData": "The app failed to load data from the server. Please try again later.",
         "failedToAccessGeolocation": "The map failed to load automatically as location service is denied."
     },
     "notice": {
-        "apiIsInBeta": "The service is in beta until March 15th, and the public release date will be announced shortly."
+        "apiIsInBeta": "Service is in beta. There may be inaccuracies and delays (+/- 5 min)."
     },
     "storeData": {
         "name": "Name",
@@ -14,5 +15,18 @@
         "stockCount": "Stock count"
     },
     "locationsInStock": "In stock",
-    "locationsOutOfStock": "Out of stock"
+    "locationsOutOfStock": "Out of stock",
+    "addressInputLabel": "Enter address to search for",
+    "addressInputExample": "example) 서울시 강남구 역삼동 (Korean only)",
+    "searchByAddress": "Search by address",
+    "searchByGeoloc": "Search by GPS location",
+    "covid19Dashboard": "COVID-19 Status",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "Plenty",
+        "some": "Some",
+        "few": "Few",
+        "empty": "None"
+    },
+    "refreshMapStores": "Search stores on map"
 }

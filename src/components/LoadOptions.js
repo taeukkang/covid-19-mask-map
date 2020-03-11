@@ -3,15 +3,13 @@ import { Button, Container } from "react-bootstrap";
 import useGeolocation from "react-hook-geolocation";
 import { useMaskData } from "../context/MaskDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faStoreAlt,
-    faSearch,
-    faLocationArrow
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
+import MaskMapIntro from "../assets/MaskMapIntro.svg";
+import { useTranslation } from "react-i18next";
 
 function LoadOptions() {
     const geoloc = useGeolocation();
@@ -19,12 +17,20 @@ function LoadOptions() {
     const [geolocWhenAvailable, setGeolocWhenAvailable] = useState(false);
     const { centerCoord, setCenterCoord } = useMaskData();
 
+    const { t } = useTranslation();
+
     const [address, setAddress] = useState("");
 
     const fetchGeocode = async (address) => {
         let data;
         try {
-            data = await axios.get(`${process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://api.livecorona.co.kr"}/?address=${address}`);
+            data = await axios.get(
+                `${
+                    process.env.NODE_ENV === "development"
+                        ? "http://localhost:4000"
+                        : "https://api.livecorona.co.kr"
+                }/?address=${address}`
+            );
             return data;
         } catch (error) {
             console.error(error);
@@ -115,10 +121,8 @@ function LoadOptions() {
                 <Row>
                     <Col>
                         <div className="text-center mb-5">
-                            <h1>
-                                <FontAwesomeIcon icon={faStoreAlt} /> 마스크
-                                판매처 조회
-                            </h1>
+                            <img src={MaskMapIntro} alt="공적 마스크 판매처" width="100vw" className="mb-3"/>
+                            <h1>{t("searchMaskStores")}</h1>
                         </div>
                     </Col>
                 </Row>
@@ -127,7 +131,7 @@ function LoadOptions() {
                         <Form onSubmit={handleFormSubmit}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>
-                                    판매처를 찾을 주소를 입력해 주세요.
+                                    {t("addressInputLabel")}
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
@@ -136,7 +140,7 @@ function LoadOptions() {
                                     onChange={(e) => setAddress(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
-                                    예) 서울시 강남구 역삼동
+                                    {t("addressInputExample")}
                                 </Form.Text>
                             </Form.Group>
                             <div className="d-flex flex-column">
@@ -144,14 +148,13 @@ function LoadOptions() {
                                     variant="primary"
                                     className="mb-2"
                                     onClick={onClickAddress}>
-                                    <FontAwesomeIcon icon={faSearch} /> 주소로
-                                    조회
+                                    <FontAwesomeIcon icon={faSearch} /> {t("searchByAddress")}
                                 </Button>
                                 <Button
                                     variant="outline-primary"
                                     onClick={onClickGeoloc}>
                                     <FontAwesomeIcon icon={faLocationArrow} />{" "}
-                                    GPS로 위치 기반 조회
+                                    {t("searchByGeoloc")}
                                 </Button>
                             </div>
                         </Form>
