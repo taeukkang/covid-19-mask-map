@@ -24,7 +24,7 @@ function LoadOptions() {
     const fetchGeocode = async (address) => {
         let data;
         try {
-            data = await axios.get(`http://49.50.163.193:3000/?address=${address}`);
+            data = await axios.get(`${process.env.NODE_ENV === "development" ? "localhost:4000" : "https://api.livecorona.co.kr"}/?address=${address}`);
             return data;
         } catch (error) {
             console.error(error);
