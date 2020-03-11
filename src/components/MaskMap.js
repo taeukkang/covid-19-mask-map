@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import {
     Alert,
     Container,
-    Card,
     Row,
     Col,
     Spinner,
@@ -15,8 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
-import { useTranslation, withTranslation, Trans } from "react-i18next";
-import { storesByGeoDemo } from "../demoData";
+import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
 import MapPanel from "./MapPanel";
 import RemainingStockBadge from "./RemainingStockBadge";
