@@ -142,16 +142,11 @@ function MaskMap() {
                     </Row>
                     <Row>
                         <Col
-                            md={6}
-                            style={{
-                                minHeight: "65vh",
-                                height: "65vh",
-                                maxHeight: "65vh"
-                            }}>
-                            <MapPanel />
+                            md={6}>
+                            <MapPanel/>
                             <Button
                                 variant="outline-primary"
-                                className="mt-1"
+                                className="mt-1 mb-1"
                                 block
                                 onClick={onClickMapRelocate}>
                                 🟢 주변 판매처 탐색하기

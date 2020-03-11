@@ -16,7 +16,7 @@ function MapPanel() {
             <div
                 id="map"
                 ref={mapRef}
-                style={{ width: "100%", height: "100%", minHeight: "300px" }}
+                style={{ minHeight: "45vh", height: "45vh", maxHeight: "65vh" }}
             />
         </>
     );
