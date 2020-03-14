@@ -10,13 +10,23 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import MaskMapIntro from "../assets/MaskMapIntro.svg";
 import { useTranslation } from "react-i18next";
-import "../css/maskmap-custom.css";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
-function LoadOptions() {
+const Title = styled("h1")`
+    font-family: "NanumSquareRound", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #04253a;
+`;
+
+function SearchLocation() {
     const geoloc = useGeolocation();
     const [geolocState, setGeolocState] = useState(null);
     const [geolocWhenAvailable, setGeolocWhenAvailable] = useState(false);
-    const { centerCoord, setCenterCoord } = useMaskData();
+    const { setCenterCoord } = useMaskData();
+    const history = useHistory();
 
     const { t } = useTranslation();
 
@@ -68,11 +78,11 @@ function LoadOptions() {
                 geoloc.longitude != null
             ) {
                 const coord = {
-                    lat: geoloc.latitude,
-                    lng: geoloc.longitude
+                    lat: parseFloat(geoloc.latitude),
+                    lng: parseFloat(geoloc.longitude)
                 };
                 setCenterCoord(coord);
-                console.log(coord);
+                history.push(`/results/${coord.lat}/${coord.lng}`);
             }
         }
     }, [geoloc, geolocWhenAvailable, setCenterCoord]);
@@ -110,11 +120,12 @@ function LoadOptions() {
         }
 
         let coord = {
-            lat: geocodes.data.addresses[0].y,
-            lng: geocodes.data.addresses[0].x
+            lat: parseFloat(geocodes.data.addresses[0].y),
+            lng: parseFloat(geocodes.data.addresses[0].x)
         };
-
+        console.log(coord);
         setCenterCoord(coord);
+        history.push(`/results/${coord.lat}/${coord.lng}`);
     };
 
     const handleFormSubmit = (e) => {
@@ -134,7 +145,7 @@ function LoadOptions() {
                                 width="100vw"
                                 className="mb-3"
                             />
-                            <h1 class="title" style={{paddingTop:10}}>{t("searchMaskStores")}</h1>
+                            <Title>{t("searchMaskStores")}</Title>
                         </div>
                     </Col>
                 </Row>
@@ -178,4 +189,4 @@ function LoadOptions() {
     );
 }
 
-export default LoadOptions;
+export default SearchLocation;

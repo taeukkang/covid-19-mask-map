@@ -9,12 +9,16 @@ import axios from "axios";
 import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
 import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
+import { useParams, useHistory } from "react-router-dom";
 import MapPanel from "./MapPanel";
 import RemainingStockBadge from "./RemainingStockBadge";
 import MaskStoreTable2 from "./MaskStoreTable2";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
+
+    const params = useParams();
+    const history = useHistory();
 
     const {
         mapObj,
@@ -23,6 +27,7 @@ function MaskMap() {
         centerCoord,
         setCenterCoord
     } = useMaskData();
+
     const {
         addMarker,
         addColorIndicatorMarkers,
@@ -71,6 +76,34 @@ function MaskMap() {
             };
         });
     };
+
+    useEffect(() => {
+        let slug = {
+            lat: parseFloat(params.lat),
+            lng: parseFloat(params.lng)
+        };
+
+        if (centerCoord === null) {
+            // If the user directly visits the page with
+            // the results link, apply the center coords
+            // with the params value
+            if (!slug.lat || !slug.lng) {
+                history.push("/search");
+            } else {
+                setCenterCoord({
+                    lat: slug.lat,
+                    lng: slug.lng
+                });
+            }
+        } else if (
+            centerCoord.lat !== slug.lat ||
+            centerCoord.lng !== slug.lng
+        ) {
+            // The user is moving the map, so update
+            // the URL param values, not centerCoord
+            history.push(`/results/${centerCoord.lat}/${centerCoord.lng}`);
+        }
+    }, [params, centerCoord]);
 
     useEffect(() => {
         console.log(markerFilter);
