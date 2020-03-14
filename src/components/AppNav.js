@@ -12,8 +12,10 @@ function AppNav() {
     return (
         <Navbar bg="light" expand="lg" className="mb-3 navbar-mobile-thin">
             <Navbar.Brand href="/">
-                <img src={MaskMapLogo} width="24px" alt="공적 마스크 지도 로고" className="mr-2"/>
-                 {t("appName")}
+                <div class="row" style={{paddingLeft:16,font:"NanumSquareRound"}}>
+                    <img src={MaskMapLogo} width="24px" alt="공적 마스크 지도 로고" className="mr-2"/>
+                    <a class="title">{t("appName")}</a>
+                </div>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
