@@ -39,6 +39,10 @@ function LoadOptions() {
     };
 
     useEffect(() => {
+        setAddress(localStorage.getItem("lastSearchedAddress"));
+    }, []);
+
+    useEffect(() => {
         if (!geoloc) {
             return;
         }
@@ -86,6 +90,8 @@ function LoadOptions() {
             return;
         }
 
+        localStorage.setItem("lastSearchedAddress", address);
+
         let geocodes;
         try {
             geocodes = await fetchGeocode(address);
@@ -121,7 +127,12 @@ function LoadOptions() {
                 <Row>
                     <Col>
                         <div className="text-center mb-5">
-                            <img src={MaskMapIntro} alt="공적 마스크 판매처" width="100vw" className="mb-3"/>
+                            <img
+                                src={MaskMapIntro}
+                                alt="공적 마스크 판매처"
+                                width="100vw"
+                                className="mb-3"
+                            />
                             <h1>{t("searchMaskStores")}</h1>
                         </div>
                     </Col>
@@ -148,7 +159,8 @@ function LoadOptions() {
                                     variant="primary"
                                     className="mb-2"
                                     onClick={onClickAddress}>
-                                    <FontAwesomeIcon icon={faSearch} /> {t("searchByAddress")}
+                                    <FontAwesomeIcon icon={faSearch} />{" "}
+                                    {t("searchByAddress")}
                                 </Button>
                                 <Button
                                     variant="outline-primary"
