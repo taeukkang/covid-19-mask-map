@@ -10,6 +10,7 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import MaskMapIntro from "../assets/MaskMapIntro.svg";
 import { useTranslation } from "react-i18next";
+import "../css/maskmap-custom.css"
 
 function LoadOptions() {
     const geoloc = useGeolocation();
@@ -133,7 +134,7 @@ function LoadOptions() {
                                 width="100vw"
                                 className="mb-3"
                             />
-                            <h1>{t("searchMaskStores")}</h1>
+                            <h1 class="title" style={{paddingTop:10}}>{t("searchMaskStores")}</h1>
                         </div>
                     </Col>
                 </Row>
