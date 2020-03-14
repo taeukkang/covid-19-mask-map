@@ -9,6 +9,7 @@ const useNaverMapsMarkers = () => {
     const [someMarkers, setSomeMarkers] = useState([]);
     const [fewMarkers, setFewMarkers] = useState([]);
     const [emptyMarkers, setEmptyMarkers] = useState([]);
+    const [breakMarkers, setBreakMarkers] = useState([]);
 
     const { markerFilter } = useMaskData();
 
@@ -60,13 +61,15 @@ const useNaverMapsMarkers = () => {
             let _someMarkers = [];
             let _fewMarkers = [];
             let _emptyMarkers = [];
+            let _breakMarkers = [];
 
             stores.forEach((store) => {
                 let iconPath;
                 if (
                     store.remain_stat === undefined ||
                     store.remain_stat === null ||
-                    store.remain_stat === "empty"
+                    store.remain_stat === "empty" ||
+                    store.remain_stat === "break"
                 ) {
                     return;
                 }
@@ -82,6 +85,9 @@ const useNaverMapsMarkers = () => {
                         iconPath = "red_circle.png";
                         break;
                     case "empty":
+                        iconPath = "gray_circle.png";
+                        break;
+                    case "break":
                         iconPath = "gray_circle.png";
                         break;
                     default:
@@ -146,6 +152,9 @@ const useNaverMapsMarkers = () => {
                     case "empty":
                         _emptyMarkers.push(marker);
                         break;
+                    case "break":
+                        _breakMarkers.push(marker);
+                        break;
                     default:
                         _emptyMarkers.push(marker);
                 }
@@ -155,6 +164,7 @@ const useNaverMapsMarkers = () => {
             setSomeMarkers(_someMarkers);
             setFewMarkers(_fewMarkers);
             setEmptyMarkers(_fewMarkers);
+            setBreakMarkers(_fewMarkers);
         },
         [markerFilter]
     );
@@ -175,8 +185,11 @@ const useNaverMapsMarkers = () => {
         emptyMarkers.forEach((marker) => {
             marker.setMap(null);
         });
+        breakMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
         setMarkers([]);
-    }, [markers, plentyMarkers, fewMarkers, someMarkers, emptyMarkers]);
+    }, [markers, plentyMarkers, fewMarkers, someMarkers, emptyMarkers, breakMarkers]);
 
     return {
         addMarker,

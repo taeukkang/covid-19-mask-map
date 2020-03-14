@@ -26,7 +26,8 @@
         "plenty": "여유",
         "some": "일부",
         "few": "소량",
-        "empty": "없음"
+        "empty": "없음",
+        "break": "판매중지"
     },
     "refreshMapStores": "지도 주변 판매처 재검색"
 }

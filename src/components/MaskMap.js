@@ -51,6 +51,7 @@ function MaskMap() {
                 "some",
                 "few",
                 "empty",
+                "break",
                 null,
                 undefined
             ];
@@ -88,6 +89,8 @@ function MaskMap() {
             case "few":
                 return true;
             case "empty":
+                return false;
+            case "break":
                 return false;
             default:
                 return false;
