@@ -24,6 +24,10 @@ function RemainingStockBadge({ remainingStockStr }) {
             variant = "light";
             text = t("badge.empty");
             break;
+        case "break":
+            variant = "secondary";
+            text = t("badge.break");
+            break;
         default:
             variant = "light";
             text = "?";

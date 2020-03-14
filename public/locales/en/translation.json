@@ -26,7 +26,8 @@
         "plenty": "Plenty",
         "some": "Some",
         "few": "Few",
-        "empty": "None"
+        "empty": "None",
+        "break": "Break"
     },
     "refreshMapStores": "Search stores on map"
 }
