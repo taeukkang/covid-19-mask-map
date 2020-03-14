@@ -67,6 +67,8 @@ const useNaverMapsMarkers = () => {
 
             stores.forEach((store) => {
                 let iconPath;
+                let markerText;
+
                 if (
                     store.remain_stat === undefined ||
                     store.remain_stat === null ||
@@ -79,21 +81,27 @@ const useNaverMapsMarkers = () => {
                 switch (store.remain_stat) {
                     case "plenty":
                         iconPath = "green_circle.svg";
+                        markerText = "100"
                         break;
                     case "some":
                         iconPath = "yellow_circle.svg";
+                        markerText = "30"
                         break;
                     case "few":
                         iconPath = "red_circle.svg";
+                        markerText = "2"
                         break;
                     case "empty":
                         iconPath = "gray_circle.svg";
+                        markerText = "0"
                         break;
                     case "break":
                         iconPath = "gray_circle.svg";
+                        markerText = "X"
                         break;
                     default:
                         iconPath = "gray_circle.svg";
+                        markerText = "X"
                 }
 
                 const marker = new window.naver.maps.Marker({
@@ -103,8 +111,7 @@ const useNaverMapsMarkers = () => {
                         lng: store.lng
                     },
                     icon: {
-                        url: `./${iconPath}`,
-                        scaledSize: new window.naver.maps.Size(20, 20)
+                        content: `<div class="mask-marker"><img src="./${iconPath}" height="30" width="30"></img><p class="marker-text">${markerText}</p></div>`
                     }
                 });
 
