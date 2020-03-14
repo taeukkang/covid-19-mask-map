@@ -76,22 +76,22 @@ const useNaverMapsMarkers = () => {
 
                 switch (store.remain_stat) {
                     case "plenty":
-                        iconPath = "green_circle.png";
+                        iconPath = "green_circle.svg";
                         break;
                     case "some":
-                        iconPath = "yellow_circle.png";
+                        iconPath = "yellow_circle.svg";
                         break;
                     case "few":
-                        iconPath = "red_circle.png";
+                        iconPath = "red_circle.svg";
                         break;
                     case "empty":
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
                         break;
                     case "break":
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
                         break;
                     default:
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
                 }
 
                 const marker = new window.naver.maps.Marker({
@@ -102,7 +102,7 @@ const useNaverMapsMarkers = () => {
                     },
                     icon: {
                         url: `./${iconPath}`,
-                        size: new window.naver.maps.Size(10, 10)
+                        scaledSize: new window.naver.maps.Size(20, 20)
                     }
                 });
 
