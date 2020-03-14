@@ -111,7 +111,8 @@ const useNaverMapsMarkers = () => {
                         lng: store.lng
                     },
                     icon: {
-                        content: `<div class="mask-marker"><img src="./${iconPath}" height="30" width="30"></img><p class="marker-text">${markerText}</p></div>`
+                        content: `<div class="mask-marker"><img src="./${iconPath}" height="30" width="30"></img><p class="marker-text">${markerText}</p></div>`,
+                        anchor: new window.naver.maps.Point(15,0)
                     }
                 });
 
