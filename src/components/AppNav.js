@@ -5,6 +5,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import MaskMapLogo from "../assets/MaskMapLogo.svg";
+import "../css/maskmap-custom.css";
 
 function AppNav() {
     const { t, i18n } = useTranslation();
@@ -12,10 +13,8 @@ function AppNav() {
     return (
         <Navbar bg="light" expand="lg" className="mb-3 navbar-mobile-thin">
             <Navbar.Brand href="/">
-                <div class="row" style={{paddingLeft:16,font:"NanumSquareRound"}}>
                     <img src={MaskMapLogo} width="24px" alt="공적 마스크 지도 로고" className="mr-2"/>
                     <a class="title">{t("appName")}</a>
-                </div>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

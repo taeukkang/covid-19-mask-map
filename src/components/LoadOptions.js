@@ -10,7 +10,7 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import MaskMapIntro from "../assets/MaskMapIntro.svg";
 import { useTranslation } from "react-i18next";
-import "../css/maskmap-custom.css"
+import "../css/maskmap-custom.css";
 
 function LoadOptions() {
     const geoloc = useGeolocation();
