@@ -29,5 +29,6 @@
         "empty": "None",
         "break": "Break"
     },
+    "showDirections": "Show directions",
     "refreshMapStores": "Search stores on map"
 }

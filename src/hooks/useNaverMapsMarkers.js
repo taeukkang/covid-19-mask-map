@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import RemainingStockBadge from "../components/RemainingStockBadge";
 import { useMaskData } from "../context/MaskDataContext";
+import { useTranslation } from "react-i18next";
 
 const useNaverMapsMarkers = () => {
     const [markers, setMarkers] = useState([]);
@@ -10,6 +11,7 @@ const useNaverMapsMarkers = () => {
     const [fewMarkers, setFewMarkers] = useState([]);
     const [emptyMarkers, setEmptyMarkers] = useState([]);
     const [breakMarkers, setBreakMarkers] = useState([]);
+    const { t } = useTranslation();
 
     const { markerFilter } = useMaskData();
 
@@ -117,7 +119,7 @@ const useNaverMapsMarkers = () => {
                 )} | <a href="https://map.naver.com/v5/search/${
                     store.name
                 }" target="_blank" rel="noopener noreferrer"
-                >길찾기</a> </p>
+                >${t("showDirections")}</a> </p>
             </div>`;
 
                 const infoWindow = new window.naver.maps.InfoWindow({

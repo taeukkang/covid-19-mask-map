@@ -16,10 +16,6 @@ import MaskStoreTable2 from "./MaskStoreTable2";
 function MaskMap() {
     const { t, i18n } = useTranslation();
 
-    useEffect(() => {
-        i18n.changeLanguage("ko");
-    }, []);
-
     const {
         mapObj,
         maskStores,

@@ -29,5 +29,6 @@
         "empty": "없음",
         "break": "판매중지"
     },
+    "showDirections": "길찾기",
     "refreshMapStores": "지도 주변 판매처 재검색"
 }
