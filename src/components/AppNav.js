@@ -16,7 +16,11 @@ function AppNav() {
                     <img src={MaskMapLogo} width="24px" alt="공적 마스크 지도 로고" className="mr-2"/>
                     <a class="title">{t("appName")}</a>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </Navbar.Toggle>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
                     <NavDropdown title="🌐 Language">
