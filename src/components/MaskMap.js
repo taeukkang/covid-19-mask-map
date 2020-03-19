@@ -183,11 +183,11 @@ function MaskMap() {
         } else if (day === '수') {
             setNowDate(`${nowDay}은 출생연도 끝자리 3, 8만 구매하실 수 있습니다.`);
         } else if (day === '목') {
-            setNowDate(`${nowDay}는 출생연도 끝자리 4, 9만 구매하실 수 있습니다.`);
+            setNowDate(`${nowDay}은 출생연도 끝자리 4, 9만 구매하실 수 있습니다.`);
         } else if (day === '금') {
-            setNowDate(`${nowDay}는 출생연도 끝자리 5, 0만 구매하실 수 있습니다.`);
+            setNowDate(`${nowDay}은 출생연도 끝자리 5, 0만 구매하실 수 있습니다.`);
         } else {
-            setNowDate(`${nowDay}는 평일에 구매하지 못하신 분들이 구매하실 수 있습니다.`);
+            setNowDate(`${nowDay}은 평일에 구매하지 못하신 분들이 구매하실 수 있습니다.`);
         }
     }
 
