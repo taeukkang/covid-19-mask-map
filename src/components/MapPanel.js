@@ -9,7 +9,7 @@ function MapPanel() {
 
     useEffect(() => {
         setMapObj(loadMap(mapRef));
-    }, []);
+    }, [loadMap, setMapObj]);
 
     return (
         <>

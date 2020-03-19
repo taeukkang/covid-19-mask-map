@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Alert, Container, Row, Col, Spinner, Button } from "react-bootstrap";
+import { Alert, Container, Row, Col, Spinner, Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faExclamationTriangle,
@@ -43,6 +43,8 @@ function MaskMap() {
         few: true,
         empty: false
     });
+
+    const [nowDate, setNowDate] = useState('');
 
     const setNewMaskStores = useCallback(
         (data) => {
@@ -148,6 +150,12 @@ function MaskMap() {
         addColorIndicatorMarkers(mapObj, maskStores);
     }, [maskStores]);
 
+
+    useEffect(() => {
+        // maskDate();
+        setTimeout(() => maskDate(), 1000);
+    }, [])
+
     const onClickMapRelocate = () => {
         const newCenter = mapObj.getCenter();
         setCenterCoord({
@@ -155,6 +163,33 @@ function MaskMap() {
             lng: newCenter.x
         });
     };
+
+    const maskDate = () => {
+        const today = new Date();
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+        const day = dayNames[today.getDay()];
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let date = today.getDate();
+
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
+        
+        const nowDay = `${year}년 ${month}월 ${date}일 ${day}요일`;
+        if (day === '월') {
+            setNowDate(`${nowDay}은 출생연도 끝자리 1, 6만 구매하실 수 있습니다.`);
+        } else if (day === '화') {
+            setNowDate(`${nowDay}은 출생연도 끝자리 2, 7만 구매하실 수 있습니다.`);
+        } else if (day === '수') {
+            setNowDate(`${nowDay}은 출생연도 끝자리 3, 8만 구매하실 수 있습니다.`);
+        } else if (day === '목') {
+            setNowDate(`${nowDay}는 출생연도 끝자리 4, 9만 구매하실 수 있습니다.`);
+        } else if (day === '금') {
+            setNowDate(`${nowDay}는 출생연도 끝자리 5, 0만 구매하실 수 있습니다.`);
+        } else {
+            setNowDate(`${nowDay}는 평일에 구매하지 못하신 분들이 구매하실 수 있습니다.`);
+        }
+    }
 
     return (
         <>
@@ -177,6 +212,9 @@ function MaskMap() {
                     </Row>
                     <Row>
                         <Col md={6}>
+                            <Card style={{ marginBottom: '5px' }}>
+                                <Card.Body>{nowDate}</Card.Body>
+                            </Card>
                             <MapPanel />
                             <Button
                                 variant="outline-primary"
