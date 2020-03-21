@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Alert, Container, Row, Col, Spinner, Button } from "react-bootstrap";
+import {
+    Alert,
+    Container,
+    Row,
+    Col,
+    Spinner,
+    Button,
+    Card
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faExclamationTriangle,
@@ -12,6 +20,7 @@ import { useMaskData } from "../context/MaskDataContext";
 import MapPanel from "./MapPanel";
 import RemainingStockBadge from "./RemainingStockBadge";
 import MaskStoreTable2 from "./MaskStoreTable2";
+import alternateMaskDays from "../data/alternateMaskDays.json";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -39,6 +48,8 @@ function MaskMap() {
         few: true,
         empty: false
     });
+
+    const [nowDate, setNowDate] = useState("");
 
     const setNewMaskStores = useCallback(
         (data) => {
@@ -144,6 +155,10 @@ function MaskMap() {
         addColorIndicatorMarkers(mapObj, maskStores);
     }, [maskStores]);
 
+    useEffect(() => {
+        setMaskDateText();
+    }, []);
+
     const onClickMapRelocate = () => {
         const newCenter = mapObj.getCenter();
         setCenterCoord({
@@ -151,6 +166,24 @@ function MaskMap() {
             lng: newCenter.x
         });
     };
+
+    const setMaskDateText = useCallback(() => {
+        const today = new Date();
+        const day = today.getDay();
+
+        if (day === 0 || day === 6) {
+            // Weekend
+            setNowDate(t("maskBuyAlertWeekend"));
+        } else {
+            // Weekday
+            setNowDate(
+                t("maskBuyAlertWeekday", {
+                    dayOfWeek: t(`dayOfWeek.${alternateMaskDays[day].weekday}`),
+                    digits: alternateMaskDays[day].availableDigits.join(", ")
+                })
+            );
+        }
+    }, []);
 
     return (
         <>
@@ -173,6 +206,9 @@ function MaskMap() {
                     </Row>
                     <Row>
                         <Col md={6}>
+                            <Card style={{ marginBottom: "5px" }}>
+                                <Card.Body>{nowDate}</Card.Body>
+                            </Card>
                             <MapPanel />
                             <Button
                                 variant="outline-primary"

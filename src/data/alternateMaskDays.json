@@ -1,0 +1,30 @@
+[
+    {
+        "weekday": "sun",
+        "availableDigits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    {
+        "weekday": "mon",
+        "availableDigits": [1, 6]
+    },
+    {
+        "weekday": "tue",
+        "availableDigits": [2, 7]
+    },
+    {
+        "weekday": "wed",
+        "availableDigits": [3, 8]
+    },
+    {
+        "weekday": "thurs",
+        "availableDigits": [4, 9]
+    },
+    {
+        "weekday": "fri",
+        "availableDigits": [5, 0]
+    },
+    {
+        "weekday": "sat",
+        "availableDigits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+]
