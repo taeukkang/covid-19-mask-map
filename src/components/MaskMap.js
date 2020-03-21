@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Alert, Container, Row, Col, Spinner, Button, Card } from "react-bootstrap";
+import {
+    Alert,
+    Container,
+    Row,
+    Col,
+    Spinner,
+    Button,
+    Card
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faExclamationTriangle,
@@ -12,6 +20,7 @@ import { useMaskData } from "../context/MaskDataContext";
 import MapPanel from "./MapPanel";
 import RemainingStockBadge from "./RemainingStockBadge";
 import MaskStoreTable2 from "./MaskStoreTable2";
+import alternateMaskDays from "../data/alternateMaskDays.json";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -44,7 +53,7 @@ function MaskMap() {
         empty: false
     });
 
-    const [nowDate, setNowDate] = useState('');
+    const [nowDate, setNowDate] = useState("");
 
     const setNewMaskStores = useCallback(
         (data) => {
@@ -150,11 +159,9 @@ function MaskMap() {
         addColorIndicatorMarkers(mapObj, maskStores);
     }, [maskStores]);
 
-
     useEffect(() => {
-        // maskDate();
-        setTimeout(() => maskDate(), 1000);
-    }, [])
+        setMaskDateText();
+    }, []);
 
     const onClickMapRelocate = () => {
         const newCenter = mapObj.getCenter();
@@ -164,32 +171,23 @@ function MaskMap() {
         });
     };
 
-    const maskDate = () => {
+    const setMaskDateText = useCallback(() => {
         const today = new Date();
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-        const day = dayNames[today.getDay()];
-        const year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let date = today.getDate();
+        const day = today.getDay();
 
-        month = month < 10 ? '0' + month : month;
-        date = date < 10 ? '0' + date : date;
-        
-        const nowDay = `${year}년 ${month}월 ${date}일 ${day}요일`;
-        if (day === '월') {
-            setNowDate(`${nowDay}은 출생연도 끝자리 1, 6만 구매하실 수 있습니다.`);
-        } else if (day === '화') {
-            setNowDate(`${nowDay}은 출생연도 끝자리 2, 7만 구매하실 수 있습니다.`);
-        } else if (day === '수') {
-            setNowDate(`${nowDay}은 출생연도 끝자리 3, 8만 구매하실 수 있습니다.`);
-        } else if (day === '목') {
-            setNowDate(`${nowDay}은 출생연도 끝자리 4, 9만 구매하실 수 있습니다.`);
-        } else if (day === '금') {
-            setNowDate(`${nowDay}은 출생연도 끝자리 5, 0만 구매하실 수 있습니다.`);
+        if (day === 0 || day === 6) {
+            // Weekend
+            setNowDate(t("maskBuyAlertWeekend"));
         } else {
-            setNowDate(`${nowDay}은 평일에 구매하지 못하신 분들이 구매하실 수 있습니다.`);
+            // Weekday
+            setNowDate(
+                t("maskBuyAlertWeekday", {
+                    dayOfWeek: t(`dayOfWeek.${alternateMaskDays[day].weekday}`),
+                    digits: alternateMaskDays[day].availableDigits.join(", ")
+                })
+            );
         }
-    }
+    }, []);
 
     return (
         <>
@@ -212,7 +210,7 @@ function MaskMap() {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            <Card style={{ marginBottom: '5px' }}>
+                            <Card style={{ marginBottom: "5px" }}>
                                 <Card.Body>{nowDate}</Card.Body>
                             </Card>
                             <MapPanel />
