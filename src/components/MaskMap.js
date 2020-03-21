@@ -25,10 +25,6 @@ import alternateMaskDays from "../data/alternateMaskDays.json";
 function MaskMap() {
     const { t, i18n } = useTranslation();
 
-    useEffect(() => {
-        i18n.changeLanguage("ko");
-    }, []);
-
     const {
         mapObj,
         maskStores,

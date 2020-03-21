@@ -1,0 +1,34 @@
+{
+    "appName": "公共口罩发售地图",
+    "searchMaskStores": "口罩发售点查询",
+    "error": {
+        "failedToLoadData": "服务器数据出错，请稍后重试。",
+        "failedToAccessGeolocation": "位置权限被禁用，地图无法自动开启。"
+    },
+    "notice": {
+        "apiIsInBeta": "β服务可能会存在误差，将会有5分钟的延迟时间，请谅解。"
+    },
+    "storeData": {
+        "name": "名称",
+        "address": "住所",
+        "remainingCount": "剩余数量",
+        "stockCount": "数量"
+    },
+    "locationsInStock": "有剩余库存地点",
+    "locationsOutOfStock": "无剩余库存地点",
+    "addressInputLabel": "请输入购买口罩的地址",
+    "addressInputExample": "例）서울시 강남구 역삼동",
+    "searchByAddress": "住址检索",
+    "searchByGeoloc": "GPS检索",
+    "covid19Dashboard": "冠状病毒19感染情况分布图",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "剩余",
+        "some": "一些",
+        "few": "少量",
+        "empty": "无",
+        "break": "停售"
+    },
+    "showDirections": "寻路",
+    "refreshMapStores": "再次检索地图周边售卖点"
+}

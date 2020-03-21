@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import RemainingStockBadge from "../components/RemainingStockBadge";
 import { useMaskData } from "../context/MaskDataContext";
+import { useTranslation } from "react-i18next";
 
 const useNaverMapsMarkers = () => {
     const [markers, setMarkers] = useState([]);
@@ -10,6 +11,7 @@ const useNaverMapsMarkers = () => {
     const [fewMarkers, setFewMarkers] = useState([]);
     const [emptyMarkers, setEmptyMarkers] = useState([]);
     const [breakMarkers, setBreakMarkers] = useState([]);
+    const { t } = useTranslation();
 
     const { markerFilter } = useMaskData();
 
@@ -65,6 +67,8 @@ const useNaverMapsMarkers = () => {
 
             stores.forEach((store) => {
                 let iconPath;
+                let markerText;
+
                 if (
                     store.remain_stat === undefined ||
                     store.remain_stat === null ||
@@ -76,22 +80,28 @@ const useNaverMapsMarkers = () => {
 
                 switch (store.remain_stat) {
                     case "plenty":
-                        iconPath = "green_circle.png";
+                        iconPath = "green_circle.svg";
+                        markerText = "100"
                         break;
                     case "some":
-                        iconPath = "yellow_circle.png";
+                        iconPath = "yellow_circle.svg";
+                        markerText = "30"
                         break;
                     case "few":
-                        iconPath = "red_circle.png";
+                        iconPath = "red_circle.svg";
+                        markerText = "2"
                         break;
                     case "empty":
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
+                        markerText = "0"
                         break;
                     case "break":
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
+                        markerText = "X"
                         break;
                     default:
-                        iconPath = "gray_circle.png";
+                        iconPath = "gray_circle.svg";
+                        markerText = "X"
                 }
 
                 const marker = new window.naver.maps.Marker({
@@ -101,8 +111,8 @@ const useNaverMapsMarkers = () => {
                         lng: store.lng
                     },
                     icon: {
-                        url: `./${iconPath}`,
-                        size: new window.naver.maps.Size(10, 10)
+                        content: `<div class="mask-marker"><img src="./${iconPath}" height="30" width="30"></img><p class="marker-text">${markerText}</p></div>`,
+                        anchor: new window.naver.maps.Point(15,0)
                     }
                 });
 
@@ -117,7 +127,7 @@ const useNaverMapsMarkers = () => {
                 )} | <a href="https://map.naver.com/v5/search/${
                     store.name
                 }" target="_blank" rel="noopener noreferrer"
-                >길찾기</a> </p>
+                >${t("showDirections")}</a> </p>
             </div>`;
 
                 const infoWindow = new window.naver.maps.InfoWindow({
