@@ -49,8 +49,6 @@ function MaskMap() {
         empty: false
     });
 
-    const [nowDate, setNowDate] = useState("");
-
     const setNewMaskStores = useCallback(
         (data) => {
             const priority = [
@@ -155,10 +153,6 @@ function MaskMap() {
         addColorIndicatorMarkers(mapObj, maskStores);
     }, [maskStores]);
 
-    useEffect(() => {
-        setMaskDateText();
-    }, []);
-
     const onClickMapRelocate = () => {
         const newCenter = mapObj.getCenter();
         setCenterCoord({
@@ -167,23 +161,21 @@ function MaskMap() {
         });
     };
 
-    const setMaskDateText = useCallback(() => {
+    const getAlternateMaskText = useCallback(() => {
         const today = new Date();
         const day = today.getDay();
 
         if (day === 0 || day === 6) {
             // Weekend
-            setNowDate(t("maskBuyAlertWeekend"));
+            return t("maskBuyAlertWeekend");
         } else {
             // Weekday
-            setNowDate(
-                t("maskBuyAlertWeekday", {
-                    dayOfWeek: t(`dayOfWeek.${alternateMaskDays[day].weekday}`),
-                    digits: alternateMaskDays[day].availableDigits.join(", ")
-                })
-            );
+            return t("maskBuyAlertWeekday", {
+                dayOfWeek: t(`dayOfWeek.${alternateMaskDays[day].weekday}`),
+                digits: alternateMaskDays[day].availableDigits.join(", ")
+            });
         }
-    }, []);
+    }, [i18n]);
 
     return (
         <>
@@ -207,7 +199,7 @@ function MaskMap() {
                     <Row>
                         <Col md={6}>
                             <Card style={{ marginBottom: "5px" }}>
-                                <Card.Body>{nowDate}</Card.Body>
+                                <Card.Body className="p-1">{getAlternateMaskText()}</Card.Body>
                             </Card>
                             <MapPanel />
                             <Button

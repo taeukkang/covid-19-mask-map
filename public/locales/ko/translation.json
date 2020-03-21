@@ -30,6 +30,7 @@
         "break": "판매중지"
     },
     "refreshMapStores": "지도 주변 판매처 재검색",
+    "showDirections": "길찾기",
     "dayOfWeek": {
         "mon": "월",
         "tue": "화",
@@ -40,6 +41,5 @@
         "sun": "일"
     },
     "maskBuyAlertWeekday": "오늘({{dayOfWeek}}): 출생연도 끝자리 {{digits}} 구입 가능",
-    "maskBuyAlertWeekend": "오늘(주말): 평일에 구입하지 못한 모든 분 구매 가능",
-    "showDirections": "길찾기"
+    "maskBuyAlertWeekend": "오늘(주말): 평일에 구입하지 못한 모든 분 구매 가능"
 }

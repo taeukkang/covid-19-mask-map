@@ -30,5 +30,16 @@
         "break": "停售"
     },
     "showDirections": "寻路",
-    "refreshMapStores": "再次检索地图周边售卖点"
+    "refreshMapStores": "再次检索地图周边售卖点",
+    "dayOfWeek": {
+        "mon": "礼拜一",
+        "tue": "礼拜二",
+        "wed": "礼拜三",
+        "thurs": "礼拜四",
+        "fri": "礼拜五",
+        "sat": "礼拜六",
+        "sun": "礼拜天"
+    },
+    "maskBuyAlertWeekday": "今天({{dayOfWeek}}): 出生年度结束数字 {{digits}} 可购买",
+    "maskBuyAlertWeekend": "今天(周末): 这周没有购买的话可以购买"
 }
