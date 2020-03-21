@@ -234,7 +234,7 @@ function MaskMap() {
                                     />
                                     <label
                                         class="form-check-label"
-                                        for="showPlentyStores">
+                                        htmlFor="showPlentyStores">
                                         <RemainingStockBadge remainingStockStr="plenty" />{" "}
                                         100개 +
                                     </label>

@@ -22,7 +22,7 @@ function MaskStoreTable2() {
                 <tbody>
                     {maskStores.map((store) => {
                         return (
-                            <tr>
+                            <tr key={store.code}>
                                 <td>{store.name}</td>
                                 <td>{<RemainingStockBadge remainingStockStr={store.remain_stat} />}</td>
                                 <td>{store.addr}</td>

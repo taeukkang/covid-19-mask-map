@@ -12,9 +12,9 @@ function AppNav() {
 
     return (
         <Navbar bg="light" expand="lg" className="mb-3 navbar-mobile-thin">
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/" className="title">
                     <img src={MaskMapLogo} width="24px" alt="공적 마스크 지도 로고" className="mr-2"/>
-                    <a class="title">{t("appName")}</a>
+                    {t("appName")}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav">
                 <span></span>

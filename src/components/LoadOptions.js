@@ -134,7 +134,7 @@ function LoadOptions() {
                                 width="100vw"
                                 className="mb-3"
                             />
-                            <h1 class="title" style={{paddingTop:10}}>{t("searchMaskStores")}</h1>
+                            <h1 className="title" style={{paddingTop:10}}>{t("searchMaskStores")}</h1>
                         </div>
                     </Col>
                 </Row>
