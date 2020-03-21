@@ -30,6 +30,7 @@
         "break": "Break"
     },
     "refreshMapStores": "지도 주변 판매처 재검색",
+    "showDirections": "Show directions",
     "dayOfWeek": {
         "mon": "Mon",
         "tue": "Tue",
@@ -40,7 +41,5 @@
         "sun": "Sun"
     },
     "maskBuyAlertWeekday": "Today ({{dayOfWeek}}): Birth year end digit {{digits}} can purchase",
-    "maskBuyAlertWeekend": "Today (weekend): Anyone who didn't purchase a mask during weekday",
-    "showDirections": "Show directions",
-    "refreshMapStores": "Search stores on map"
+    "maskBuyAlertWeekend": "Today (weekend): Anyone who didn't purchase a mask during weekday"
 }

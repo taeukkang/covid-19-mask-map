@@ -32,14 +32,14 @@
     "showDirections": "寻路",
     "refreshMapStores": "再次检索地图周边售卖点",
     "dayOfWeek": {
-        "mon": "礼拜一",
-        "tue": "礼拜二",
-        "wed": "礼拜三",
-        "thurs": "礼拜四",
-        "fri": "礼拜五",
-        "sat": "礼拜六",
-        "sun": "礼拜天"
+        "mon": "周一",
+        "tue": "周二",
+        "wed": "周三",
+        "thurs": "周四",
+        "fri": "周五",
+        "sat": "周六",
+        "sun": "周日"
     },
-    "maskBuyAlertWeekday": "今天({{dayOfWeek}}): 出生年度结束数字 {{digits}} 可购买",
-    "maskBuyAlertWeekend": "今天(周末): 这周没有购买的话可以购买"
+    "maskBuyAlertWeekday": "今日({{dayOfWeek}}): 出生年月末尾数 {{digits}} 可以购买",
+    "maskBuyAlertWeekend": "今日(周末): 工作日未能购买口罩的人士均可购买"
 }
