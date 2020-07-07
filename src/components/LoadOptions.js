@@ -2,7 +2,7 @@ import { faLocationArrow, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Alert } from "react-bootstrap";
 import useGeolocation from "react-hook-geolocation";
 import { useTranslation } from "react-i18next";
 import MaskMapIntro from "../assets/MaskMapIntro.svg";
@@ -154,7 +154,7 @@ function LoadOptions() {
                                     {t("addressInputExample")}
                                 </Form.Text>
                             </Form.Group>
-                            <div className="d-flex flex-column">
+                            <div className="d-flex flex-column mb-3">
                                 <Button
                                     variant="primary"
                                     className="mb-2"
@@ -169,6 +169,9 @@ function LoadOptions() {
                                     {t("searchByGeoloc")}
                                 </Button>
                             </div>
+                            <Alert variant="info">
+                                {t("notice.publicMaskShutdown")}
+                            </Alert>
                         </Form>
                     </Col>
                 </Row>
