@@ -170,18 +170,18 @@ function MaskMap() {
                                     <FontAwesomeIcon
                                         icon={faExclamationTriangle}
                                     />{" "}
-                                    {t("notice.apiIsInBeta")}
+                                    {t("notice.publicMaskShutdown")}
                                 </Alert>
                             )}
                         </Col>
                     </Row>
                     <Row>
                         <Col md={6}>
-                            <Card style={{ marginBottom: "5px" }}>
+                            {/* <Card style={{ marginBottom: "5px" }}>
                                 <Card.Body className="p-1">
                                     {getAlternateMaskText()}
                                 </Card.Body>
-                            </Card>
+                            </Card> */}
                             <MapPanel />
                             <Button
                                 variant="outline-primary"

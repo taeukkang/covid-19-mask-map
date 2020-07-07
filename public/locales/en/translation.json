@@ -6,7 +6,8 @@
         "failedToAccessGeolocation": "The map failed to load automatically as location service is denied."
     },
     "notice": {
-        "apiIsInBeta": "Service is in beta. There may be inaccuracies and delays (+/- 5 min)."
+        "apiIsInBeta": "Service is in beta. There may be inaccuracies and delays (+/- 5 min).",
+        "publicMaskShutdown": "As mask stocks have stabilized, the public mask program will stop on July 12th. Masks can be purchased from pharmacies, supermarkets, online, and convenience stores without limitations. As a result, the mask map service will also shut down. Thank you."
     },
     "storeData": {
         "name": "Name",
