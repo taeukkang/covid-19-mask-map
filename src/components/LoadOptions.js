@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
-import useGeolocation from "react-hook-geolocation";
-import { useMaskData } from "../context/MaskDataContext";
+import { faLocationArrow, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { Form } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import MaskMapIntro from "../assets/MaskMapIntro.svg";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import useGeolocation from "react-hook-geolocation";
 import { useTranslation } from "react-i18next";
+import MaskMapIntro from "../assets/MaskMapIntro.svg";
+import { useMaskData } from "../context/MaskDataContext";
 import "../css/maskmap-custom.css";
 
 function LoadOptions() {
     const geoloc = useGeolocation();
     const [geolocState, setGeolocState] = useState(null);
     const [geolocWhenAvailable, setGeolocWhenAvailable] = useState(false);
-    const { centerCoord, setCenterCoord } = useMaskData();
+    const { setCenterCoord } = useMaskData();
 
     const { t } = useTranslation();
 
@@ -69,7 +66,7 @@ function LoadOptions() {
             ) {
                 const coord = {
                     lat: geoloc.latitude,
-                    lng: geoloc.longitude
+                    lng: geoloc.longitude,
                 };
                 setCenterCoord(coord);
                 console.log(coord);
@@ -111,7 +108,7 @@ function LoadOptions() {
 
         let coord = {
             lat: geocodes.data.addresses[0].y,
-            lng: geocodes.data.addresses[0].x
+            lng: geocodes.data.addresses[0].x,
         };
 
         setCenterCoord(coord);
@@ -134,7 +131,9 @@ function LoadOptions() {
                                 width="100vw"
                                 className="mb-3"
                             />
-                            <h1 className="title" style={{paddingTop:10}}>{t("searchMaskStores")}</h1>
+                            <h1 className="title" style={{ paddingTop: 10 }}>
+                                {t("searchMaskStores")}
+                            </h1>
                         </div>
                     </Col>
                 </Row>

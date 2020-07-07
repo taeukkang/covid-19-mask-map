@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const MaskDataContext = createContext({
     mapObj: null,
@@ -11,9 +11,9 @@ export const MaskDataContext = createContext({
         plenty: true,
         some: true,
         few: true,
-        empty: false
+        empty: false,
     },
-    setMarkerFilter: () => {}
+    setMarkerFilter: () => {},
 });
 
 export function MaskDataContextProvider({ children }) {
@@ -24,7 +24,7 @@ export function MaskDataContextProvider({ children }) {
         plenty: true,
         some: true,
         few: true,
-        empty: false
+        empty: false,
     });
 
     return (
@@ -37,7 +37,7 @@ export function MaskDataContextProvider({ children }) {
                 centerCoord,
                 setCenterCoord,
                 markerFilter,
-                setMarkerFilter
+                setMarkerFilter,
             }}>
             {children}
         </MaskDataContext.Provider>
@@ -48,7 +48,9 @@ export function useMaskData() {
     const context = useContext(MaskDataContext);
 
     if (context === undefined) {
-        throw new Error("useMaskData must be used within a MaskDataContextProvider");
+        throw new Error(
+            "useMaskData must be used within a MaskDataContextProvider"
+        );
     }
     return context;
 }

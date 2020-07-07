@@ -13,7 +13,7 @@ function MaskStoreTable() {
         {
             Header: t("storeData.name"),
             accessor: "name",
-            width: 160
+            width: 160,
         },
         {
             Header: t("storeData.stockCount"),
@@ -21,13 +21,13 @@ function MaskStoreTable() {
             Cell: ({ cell: { value } }) => (
                 <RemainingStockBadge remainingStockStr={value} />
             ),
-            width: 60
+            width: 60,
         },
         {
             Header: t("storeData.address"),
             accessor: "addr",
-            minWidth: 200
-        }
+            minWidth: 200,
+        },
     ]);
 
     return (
@@ -44,11 +44,11 @@ function TableUI({ columns, data }) {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow
+        prepareRow,
     } = useTable(
         {
             columns,
-            data
+            data,
         },
         useBlockLayout
     );

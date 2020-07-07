@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
+import React from "react";
+import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
-import { useTable, useBlockLayout } from "react-table";
-import { Table } from "react-bootstrap";
 import RemainingStockBadge from "./RemainingStockBadge";
 
 function MaskStoreTable2() {
@@ -24,7 +23,15 @@ function MaskStoreTable2() {
                         return (
                             <tr key={store.code}>
                                 <td>{store.name}</td>
-                                <td>{<RemainingStockBadge remainingStockStr={store.remain_stat} />}</td>
+                                <td>
+                                    {
+                                        <RemainingStockBadge
+                                            remainingStockStr={
+                                                store.remain_stat
+                                            }
+                                        />
+                                    }
+                                </td>
                                 <td>{store.addr}</td>
                             </tr>
                         );

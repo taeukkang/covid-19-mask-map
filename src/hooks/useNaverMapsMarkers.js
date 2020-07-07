@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import ReactDOMServer from "react-dom/server";
+import { useTranslation } from "react-i18next";
 import RemainingStockBadge from "../components/RemainingStockBadge";
 import { useMaskData } from "../context/MaskDataContext";
-import { useTranslation } from "react-i18next";
 
 const useNaverMapsMarkers = () => {
     const [markers, setMarkers] = useState([]);
@@ -24,8 +24,8 @@ const useNaverMapsMarkers = () => {
             map: map,
             position: {
                 lat: data.lat,
-                lng: data.lng
-            }
+                lng: data.lng,
+            },
         });
 
         const infoWindowHTML = `
@@ -38,20 +38,49 @@ const useNaverMapsMarkers = () => {
             </div>`;
 
         const infoWindow = new window.naver.maps.InfoWindow({
-            content: infoWindowHTML
+            content: infoWindowHTML,
         });
 
         // mouseover event unsupported in touch devices (mobile)
-        window.naver.maps.Event.addListener(marker, "mouseover", function(e) {
+        window.naver.maps.Event.addListener(marker, "mouseover", function (e) {
             infoWindow.open(map, marker);
         });
 
-        window.naver.maps.Event.addListener(marker, "click", function(e) {
+        window.naver.maps.Event.addListener(marker, "click", function (e) {
             infoWindow.open(map, marker);
         });
 
         setMarkers((oldArray) => [...oldArray, marker]);
     };
+
+    const resetMarker = useCallback(() => {
+        markers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        plentyMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        fewMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        someMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        emptyMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        breakMarkers.forEach((marker) => {
+            marker.setMap(null);
+        });
+        setMarkers([]);
+    }, [
+        markers,
+        plentyMarkers,
+        fewMarkers,
+        someMarkers,
+        emptyMarkers,
+        breakMarkers,
+    ]);
 
     const addColorIndicatorMarkers = useCallback(
         (map, stores) => {
@@ -81,39 +110,39 @@ const useNaverMapsMarkers = () => {
                 switch (store.remain_stat) {
                     case "plenty":
                         iconPath = "green_circle.svg";
-                        markerText = "100"
+                        markerText = "100";
                         break;
                     case "some":
                         iconPath = "yellow_circle.svg";
-                        markerText = "30"
+                        markerText = "30";
                         break;
                     case "few":
                         iconPath = "red_circle.svg";
-                        markerText = "2"
+                        markerText = "2";
                         break;
                     case "empty":
                         iconPath = "gray_circle.svg";
-                        markerText = "0"
+                        markerText = "0";
                         break;
                     case "break":
                         iconPath = "gray_circle.svg";
-                        markerText = "X"
+                        markerText = "X";
                         break;
                     default:
                         iconPath = "gray_circle.svg";
-                        markerText = "X"
+                        markerText = "X";
                 }
 
                 const marker = new window.naver.maps.Marker({
                     map: map,
                     position: {
                         lat: store.lat,
-                        lng: store.lng
+                        lng: store.lng,
                     },
                     icon: {
                         content: `<div class="mask-marker"><img src="./${iconPath}" height="30" width="30"></img><p class="marker-text">${markerText}</p></div>`,
-                        anchor: new window.naver.maps.Point(15,0)
-                    }
+                        anchor: new window.naver.maps.Point(15, 0),
+                    },
                 });
 
                 const infoWindowHTML = `
@@ -131,19 +160,19 @@ const useNaverMapsMarkers = () => {
             </div>`;
 
                 const infoWindow = new window.naver.maps.InfoWindow({
-                    content: infoWindowHTML
+                    content: infoWindowHTML,
                 });
 
                 // mouseover event unsupported in touch devices (mobile)
                 window.naver.maps.Event.addListener(
                     marker,
                     "mouseover",
-                    function(e) {
+                    function (e) {
                         infoWindow.open(map, marker);
                     }
                 );
 
-                window.naver.maps.Event.addListener(marker, "click", function(
+                window.naver.maps.Event.addListener(marker, "click", function (
                     e
                 ) {
                     infoWindow.open(map, marker);
@@ -179,32 +208,10 @@ const useNaverMapsMarkers = () => {
         [markerFilter]
     );
 
-    const resetMarker = useCallback(() => {
-        markers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        plentyMarkers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        fewMarkers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        someMarkers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        emptyMarkers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        breakMarkers.forEach((marker) => {
-            marker.setMap(null);
-        });
-        setMarkers([]);
-    }, [markers, plentyMarkers, fewMarkers, someMarkers, emptyMarkers, breakMarkers]);
-
     return {
         addMarker,
         addColorIndicatorMarkers,
-        resetMarker
+        resetMarker,
     };
 };
 

@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-    Alert,
-    Container,
-    Row,
-    Col,
-    Spinner,
-    Button,
-    Card
-} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faExclamationTriangle,
-    faLocationArrow
+    faLocationArrow,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+    Alert,
+    Button,
+    Card,
+    Col,
+    Container,
+    Row,
+    Spinner,
+} from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
-import MapPanel from "./MapPanel";
-import RemainingStockBadge from "./RemainingStockBadge";
-import MaskStoreTable2 from "./MaskStoreTable2";
 import alternateMaskDays from "../data/alternateMaskDays.json";
+import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
+import MapPanel from "./MapPanel";
+import MaskStoreTable2 from "./MaskStoreTable2";
+import RemainingStockBadge from "./RemainingStockBadge";
 
 function MaskMap() {
     const { t, i18n } = useTranslation();
@@ -30,13 +30,9 @@ function MaskMap() {
         maskStores,
         setMaskStores,
         centerCoord,
-        setCenterCoord
+        setCenterCoord,
     } = useMaskData();
-    const {
-        addMarker,
-        addColorIndicatorMarkers,
-        resetMarker
-    } = useNaverMapsMarkers();
+    const { addColorIndicatorMarkers, resetMarker } = useNaverMapsMarkers();
 
     const [isLoading, setIsLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
@@ -46,7 +42,7 @@ function MaskMap() {
         plenty: true,
         some: true,
         few: true,
-        empty: false
+        empty: false,
     });
 
     const setNewMaskStores = useCallback(
@@ -58,7 +54,7 @@ function MaskMap() {
                 "empty",
                 "break",
                 null,
-                undefined
+                undefined,
             ];
             data.sort(
                 (a, b) =>
@@ -76,7 +72,7 @@ function MaskMap() {
         setMarkerFilter((prev) => {
             return {
                 ...prev,
-                [target.name]: target.checked
+                [target.name]: target.checked,
             };
         });
     };
@@ -84,23 +80,6 @@ function MaskMap() {
     useEffect(() => {
         console.log(markerFilter);
     }, [markerFilter]);
-
-    const checkInStock = (remainStat) => {
-        switch (remainStat) {
-            case "plenty":
-                return true;
-            case "some":
-                return true;
-            case "few":
-                return true;
-            case "empty":
-                return false;
-            case "break":
-                return false;
-            default:
-                return false;
-        }
-    };
 
     useEffect(() => {
         const fetchStoresByGeo = async (loc, range) => {
@@ -151,13 +130,13 @@ function MaskMap() {
         }
 
         addColorIndicatorMarkers(mapObj, maskStores);
-    }, [maskStores]);
+    }, [maskStores, mapObj, addColorIndicatorMarkers]);
 
     const onClickMapRelocate = () => {
         const newCenter = mapObj.getCenter();
         setCenterCoord({
             lat: newCenter.y,
-            lng: newCenter.x
+            lng: newCenter.x,
         });
     };
 
@@ -172,7 +151,7 @@ function MaskMap() {
             // Weekday
             return t("maskBuyAlertWeekday", {
                 dayOfWeek: t(`dayOfWeek.${alternateMaskDays[day].weekday}`),
-                digits: alternateMaskDays[day].availableDigits.join(", ")
+                digits: alternateMaskDays[day].availableDigits.join(", "),
             });
         }
     }, [i18n]);
@@ -199,7 +178,9 @@ function MaskMap() {
                     <Row>
                         <Col md={6}>
                             <Card style={{ marginBottom: "5px" }}>
-                                <Card.Body className="p-1">{getAlternateMaskText()}</Card.Body>
+                                <Card.Body className="p-1">
+                                    {getAlternateMaskText()}
+                                </Card.Body>
                             </Card>
                             <MapPanel />
                             <Button
@@ -304,7 +285,7 @@ function MaskMap() {
                                     <MaskStoreTable2
                                         style={{
                                             overflow: "auto",
-                                            maxHeight: "100px"
+                                            maxHeight: "100px",
                                         }}
                                     />
                                 </>

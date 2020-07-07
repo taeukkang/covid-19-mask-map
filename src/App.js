@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
-import { MaskDataContextProvider } from "./context/MaskDataContext";
 import AppNav from "./components/AppNav";
 import MaskStatus from "./components/MaskStatus";
+import { MaskDataContextProvider } from "./context/MaskDataContext";
 import "./App.css";
 
 function App() {
