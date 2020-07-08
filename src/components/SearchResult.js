@@ -21,6 +21,7 @@ import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
 import MapPanel from "./MapPanel";
 import MaskStoreTable from "./MaskStoreTable";
 import RemainingStockBadge from "./RemainingStockBadge";
+import "../css/SearchResult.css";
 
 function SearchResult() {
     const { t, i18n } = useTranslation();

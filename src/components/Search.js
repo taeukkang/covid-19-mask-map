@@ -7,7 +7,7 @@ import useGeolocation from "react-hook-geolocation";
 import { useTranslation } from "react-i18next";
 import MaskMapIntro from "../assets/MaskMapIntro.svg";
 import { useMaskData } from "../context/MaskDataContext";
-import "../css/maskmap-custom.css";
+import "../css/Search.css";
 
 function Search() {
     const geoloc = useGeolocation();
@@ -131,7 +131,7 @@ function Search() {
                                 width="100vw"
                                 className="mb-3"
                             />
-                            <h1 className="title" style={{ paddingTop: 10 }}>
+                            <h1 className="title">
                                 {t("searchMaskStores")}
                             </h1>
                         </div>

@@ -5,7 +5,7 @@ import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import MaskMapLogo from "../assets/MaskMapLogo.svg";
-import "../css/maskmap-custom.css";
+import "../css/AppNav.css";
 
 function AppNav() {
     const { t, i18n } = useTranslation();
