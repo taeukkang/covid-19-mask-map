@@ -9,7 +9,7 @@ import MaskMapIntro from "../assets/MaskMapIntro.svg";
 import { useMaskData } from "../context/MaskDataContext";
 import "../css/maskmap-custom.css";
 
-function LoadOptions() {
+function Search() {
     const geoloc = useGeolocation();
     const [geolocState, setGeolocState] = useState(null);
     const [geolocWhenAvailable, setGeolocWhenAvailable] = useState(false);
@@ -180,4 +180,4 @@ function LoadOptions() {
     );
 }
 
-export default LoadOptions;
+export default Search;

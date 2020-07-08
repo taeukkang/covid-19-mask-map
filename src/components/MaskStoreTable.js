@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMaskData } from "../context/MaskDataContext";
 import RemainingStockBadge from "./RemainingStockBadge";
 
-function MaskStoreTable2() {
+function MaskStoreTable() {
     const { t } = useTranslation();
     const { maskStores } = useMaskData();
 
@@ -42,4 +42,4 @@ function MaskStoreTable2() {
     );
 }
 
-export default MaskStoreTable2;
+export default MaskStoreTable;

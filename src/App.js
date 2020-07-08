@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import AppNav from "./components/AppNav";
-import MaskStatus from "./components/MaskStatus";
-import { MaskDataContextProvider } from "./context/MaskDataContext";
 import "./App.css";
+import AppNav from "./components/AppNav";
+import SearchWrapper from "./components/SearchWrapper";
+import { MaskDataContextProvider } from "./context/MaskDataContext";
 
 function App() {
     return (
@@ -12,7 +12,7 @@ function App() {
                 <header className="App-header">
                     <AppNav />
                 </header>
-                <MaskStatus />
+                <SearchWrapper />
             </MaskDataContextProvider>
         </Suspense>
     );

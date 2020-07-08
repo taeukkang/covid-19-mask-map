@@ -19,10 +19,10 @@ import { useMaskData } from "../context/MaskDataContext";
 import alternateMaskDays from "../data/alternateMaskDays.json";
 import useNaverMapsMarkers from "../hooks/useNaverMapsMarkers";
 import MapPanel from "./MapPanel";
-import MaskStoreTable2 from "./MaskStoreTable2";
+import MaskStoreTable from "./MaskStoreTable";
 import RemainingStockBadge from "./RemainingStockBadge";
 
-function MaskMap() {
+function SearchResult() {
     const { t, i18n } = useTranslation();
 
     const {
@@ -282,7 +282,7 @@ function MaskMap() {
                                 </Spinner>
                             ) : maskStores && maskStores.length ? (
                                 <>
-                                    <MaskStoreTable2
+                                    <MaskStoreTable
                                         style={{
                                             overflow: "auto",
                                             maxHeight: "100px",
@@ -304,4 +304,4 @@ function MaskMap() {
     );
 }
 
-export default MaskMap;
+export default SearchResult;
