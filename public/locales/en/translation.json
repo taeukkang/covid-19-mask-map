@@ -30,7 +30,7 @@
         "empty": "None",
         "break": "Break"
     },
-    "refreshMapStores": "지도 주변 판매처 재검색",
+    "refreshMapStores": "Refresh",
     "showDirections": "Show directions",
     "dayOfWeek": {
         "mon": "Mon",
