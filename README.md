@@ -22,8 +22,14 @@ The repository will remain here after shutdown and the app may be redeployed whe
 - JavaScript using React
   - Naver Maps API
   - Bootstrap
+  - Naver Cloud Platform Geocoding API (requires your own backend)
 - Built on GitHub Actions
 - Deployed on GitHub Pages
+
+## Geocoding
+The mask map has a geocoding feature to let users search for specific addresses in order to locate nearby mask stores if they do not want to use the device's location. A geocoding API simply converts an address into its corresponding latitude and longitude, but this is not included in the repository. Therefore, you need to provide your own API. The setting is located in [`src/components/Search.js`](https://github.com/taeukme/covid-19-mask-map/blob/master/src/components/Search.js). For LiveCorona deployment, Naver Cloud Platform geocoding is used with a Node.js back end (since CORS is unsupported), which can be found in [`taeukme/naver-maps-geocoding-server`](https://github.com/taeukme/naver-maps-geocoding-server).
+
+주소 검색을 지원하기 위해 Geocoding API를 사용합니다. Geocoding API는 주소를 입력받고 경위도를 반환합니다. Geocoding은 본 저장소에 포함되어 있지 않습니다. 라이브코로나 배포판은 네이버 클라우드 플랫폼의 Geocoding을 사용하며 [`taeukme/naver-maps-geocoding-server`](https://github.com/taeukme/naver-maps-geocoding-server) 기반의 Node.js 서버로 구동합니다. Geocoding 관련 설정은 [`src/components/Search.js`](https://github.com/taeukme/covid-19-mask-map/blob/master/src/components/Search.js)에서 수정 가능합니다.
 
 ## Localization
 The web app is localized in three languages: Korean, English, and Simplified Chinese. To add your language, please fork the repository, [create a localization file](https://github.com/taeukme/covid-19-mask-map/tree/master/public/locales), and submit a pull request.
