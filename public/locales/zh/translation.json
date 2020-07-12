@@ -42,5 +42,7 @@
         "sun": "周日"
     },
     "maskBuyAlertWeekday": "今日({{dayOfWeek}}): 出生年月末尾数 {{digits}} 可以购买",
-    "maskBuyAlertWeekend": "今日(周末): 工作日未能购买口罩的人士均可购买"
+    "maskBuyAlertWeekend": "今日(周末): 工作日未能购买口罩的人士均可购买",
+    "serviceShutdown": "服务终止通知",
+    "close": "关闭"
 }

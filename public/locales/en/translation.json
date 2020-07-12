@@ -42,5 +42,7 @@
         "sun": "Sun"
     },
     "maskBuyAlertWeekday": "Today ({{dayOfWeek}}): Birth year end digit {{digits}} can purchase",
-    "maskBuyAlertWeekend": "Today (weekend): Anyone who didn't purchase a mask during weekday"
+    "maskBuyAlertWeekend": "Today (weekend): Anyone who didn't purchase a mask during weekday",
+    "serviceShutdown": "Service shutdown notice",
+    "close": "Close"
 }
