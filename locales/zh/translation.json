@@ -1,0 +1,48 @@
+{
+    "appName": "公共口罩发售地图",
+    "searchMaskStores": "口罩发售点查询",
+    "error": {
+        "failedToLoadData": "服务器数据出错，请稍后重试。",
+        "failedToAccessGeolocation": "位置权限被禁用，地图无法自动开启。"
+    },
+    "notice": {
+        "apiIsInBeta": "β服务可能会存在误差，将会有5分钟的延迟时间，请谅解。",
+        "publicMaskShutdown": "目前口罩的供应已经稳定，因此公共口罩制度将于7月12日停止执行。 从此开始，口罩可以在药店、超市、便利店、网上随时购买。 因此，口罩地图服务也将停止运营。 谢谢。"
+    },
+    "storeData": {
+        "name": "名称",
+        "address": "住所",
+        "remainingCount": "剩余数量",
+        "stockCount": "数量"
+    },
+    "locationsInStock": "有剩余库存地点",
+    "locationsOutOfStock": "无剩余库存地点",
+    "addressInputLabel": "请输入购买口罩的地址",
+    "addressInputExample": "例）서울시 강남구 역삼동",
+    "searchByAddress": "住址检索",
+    "searchByGeoloc": "GPS检索",
+    "covid19Dashboard": "冠状病毒19感染情况分布图",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "剩余",
+        "some": "一些",
+        "few": "少量",
+        "empty": "无",
+        "break": "停售"
+    },
+    "showDirections": "寻路",
+    "refreshMapStores": "再次检索地图周边售卖点",
+    "dayOfWeek": {
+        "mon": "周一",
+        "tue": "周二",
+        "wed": "周三",
+        "thurs": "周四",
+        "fri": "周五",
+        "sat": "周六",
+        "sun": "周日"
+    },
+    "maskBuyAlertWeekday": "今日({{dayOfWeek}}): 出生年月末尾数 {{digits}} 可以购买",
+    "maskBuyAlertWeekend": "今日(周末): 工作日未能购买口罩的人士均可购买",
+    "serviceShutdown": "服务终止通知",
+    "close": "关闭"
+}

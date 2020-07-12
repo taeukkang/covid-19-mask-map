@@ -1,0 +1,48 @@
+{
+    "appName": "공적 마스크 판매처 지도",
+    "searchMaskStores": "마스크 판매처 조회",
+    "error": {
+        "failedToLoadData": "서버에서 데이터를 불러오는데 실패했습니다. 잠시 후에 다시 시도해 주십시오.",
+        "failedToAccessGeolocation": "위치 권한을 허용하지 않아 지도를 자동으로 불러오지 못했습니다."
+    },
+    "notice": {
+        "apiIsInBeta": "베타 서비스입니다. 오차가 있을 수 있으며 5분의 지연 시간 양해바랍니다.",
+        "publicMaskShutdown": "마스크 공급이 안정화되어 7월 12일부터 공적 마스크 공급을 중단합니다. 12일부터 약국, 마트, 편의점, 온라인에서 제한 없이 구매가 가능합니다. 이에 따라 마스크 맵 서비스도 운영을 중단합니다. 이용해 주셔서 감사합니다."
+    },
+    "storeData": {
+        "name": "명칭",
+        "address": "주소",
+        "remainingCount": "남은 수량",
+        "stockCount": "수량"
+    },
+    "locationsInStock": "재고가 있는 곳",
+    "locationsOutOfStock": "재고가 없는 곳",
+    "addressInputLabel": "판매처를 찾을 주소를 입력해 주세요",
+    "addressInputExample": "예) 서울시 강남구 역삼동",
+    "searchByAddress": "주소로 조회",
+    "searchByGeoloc": "GPS 위치로 조회",
+    "covid19Dashboard": "코로나19 상황판",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "여유",
+        "some": "일부",
+        "few": "소량",
+        "empty": "없음",
+        "break": "판매중지"
+    },
+    "refreshMapStores": "지도 주변 판매처 재검색",
+    "showDirections": "길찾기",
+    "dayOfWeek": {
+        "mon": "월",
+        "tue": "화",
+        "wed": "수",
+        "thurs": "목",
+        "fri": "금",
+        "sat": "토",
+        "sun": "일"
+    },
+    "maskBuyAlertWeekday": "오늘({{dayOfWeek}}): 출생연도 끝자리 {{digits}} 구입 가능",
+    "maskBuyAlertWeekend": "오늘(주말): 평일에 구입하지 못한 모든 분 구매 가능",
+    "serviceShutdown": "서비스 종료 안내",
+    "close": "닫기"
+}

@@ -1,0 +1,48 @@
+{
+    "appName": "Korea Public Mask Store Map",
+    "searchMaskStores": "Search mask stores",
+    "error": {
+        "failedToLoadData": "The app failed to load data from the server. Please try again later.",
+        "failedToAccessGeolocation": "The map failed to load automatically as location service is denied."
+    },
+    "notice": {
+        "apiIsInBeta": "Service is in beta. There may be inaccuracies and delays (+/- 5 min).",
+        "publicMaskShutdown": "As mask stocks have stabilized, the public mask program will stop on July 12th. Masks can be purchased from pharmacies, supermarkets, online, and convenience stores without limitations. As a result, the mask map service will also shut down. Thank you."
+    },
+    "storeData": {
+        "name": "Name",
+        "address": "Address",
+        "remainingCount": "Remaining count",
+        "stockCount": "Stock count"
+    },
+    "locationsInStock": "In stock",
+    "locationsOutOfStock": "Out of stock",
+    "addressInputLabel": "Enter the address to search",
+    "addressInputExample": "ex) 서울시 강남구 역삼동 (Korean only)",
+    "searchByAddress": "Search by address",
+    "searchByGeoloc": "Search by GPS location",
+    "covid19Dashboard": "COVID-19 Status",
+    "github": "GitHub",
+    "badge": {
+        "plenty": "Plenty",
+        "some": "Some",
+        "few": "Few",
+        "empty": "None",
+        "break": "Break"
+    },
+    "refreshMapStores": "Refresh",
+    "showDirections": "Show directions",
+    "dayOfWeek": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thurs": "Thurs",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+    },
+    "maskBuyAlertWeekday": "Today ({{dayOfWeek}}): Birth year end digit {{digits}} can purchase",
+    "maskBuyAlertWeekend": "Today (weekend): Anyone who didn't purchase a mask during weekday",
+    "serviceShutdown": "Service shutdown notice",
+    "close": "Close"
+}
